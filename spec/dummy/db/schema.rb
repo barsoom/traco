@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(:version => 20120316101201) do
     t.text     "body_en"
     t.text     "body_fi"
     t.string   "slug"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

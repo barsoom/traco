@@ -52,21 +52,8 @@ You can validate against the localized columns like `title_sv` if you want.
 
 # Running the tests
 
-Use Ruby 1.9. Do this once:
-
-    gem install bundler
     bundle
-    cd spec/dummy
-    rake db:migrate db:test:prepare
-
-Do this to run the tests:
-
-    rake
-
-Or:
-
-    guard
-
+    rake # or guard
 
 <!-- Keeping this a hidden brain dump for now.
 
