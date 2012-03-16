@@ -15,13 +15,10 @@ end
 # Very much based on the test setup in
 # https://github.com/iain/translatable_columns/
 
-spec_dir = File.dirname(__FILE__)
-
 require "active_record"
-databases = YAML.load File.read("#{spec_dir}/app/database.yml")
-ActiveRecord::Base.establish_connection databases["test"]
-require "#{spec_dir}/app/schema.rb"
+require "app/post.rb"
 
-require "app/post"
+ActiveRecord::Base.establish_connection adapter: "sqlite3", database: "spec/app/test.sqlite3"
+require_relative "app/schema.rb"
 
-I18n.load_path << "#{spec_dir}/app/sv.yml"
+I18n.load_path << "spec/app/sv.yml"
