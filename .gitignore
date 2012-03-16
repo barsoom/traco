@@ -1,8 +1,5 @@
 .bundle/
-log/*.log
 Gemfile.lock
 pkg/
 *.gem
-spec/dummy/db/*.sqlite3
-spec/dummy/log/*.log
-spec/dummy/tmp/
+spec/app/*.sqlite3

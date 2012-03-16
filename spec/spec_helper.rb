@@ -6,16 +6,22 @@ RSpec.configure do |config|
   # Clear class state before each spec.
   config.before(:each) do
     Object.send(:remove_const, 'Post')
-    load 'dummy/app/models/post.rb'
+    load 'app/post.rb'
   end
 
 end
 
-# Rails
+# Test against real ActiveRecord models.
+# Very much based on the test setup in
+# https://github.com/iain/translatable_columns/
 
-ENV["RAILS_ENV"] = "test"
+spec_dir = File.dirname(__FILE__)
 
-require File.expand_path("../dummy/config/environment.rb",  __FILE__)
-require "rails/test_help"
+require "active_record"
+databases = YAML.load File.read("#{spec_dir}/app/database.yml")
+ActiveRecord::Base.establish_connection databases["test"]
+require "#{spec_dir}/app/schema.rb"
 
-Rails.backtrace_cleaner.remove_silencers!
+require "app/post"
+
+I18n.load_path << "#{spec_dir}/app/sv.yml"
