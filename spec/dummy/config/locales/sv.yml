@@ -1,0 +1,7 @@
+sv:
+  attributes:
+    title_sv: "Svensk titel"
+    title: "Titel"
+  i18n:
+    languages:
+      en: "engelska"

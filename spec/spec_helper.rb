@@ -2,6 +2,13 @@ RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.filter_run :focus => true
   config.run_all_when_everything_filtered = true
+
+  # Clear class state before each spec.
+  config.before(:each) do
+    Object.send(:remove_const, 'Post')
+    load 'dummy/app/models/post.rb'
+  end
+
 end
 
 # Rails

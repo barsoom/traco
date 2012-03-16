@@ -36,7 +36,9 @@ You can still use the `title_sv` accessors in forms and other code, but you also
 
 `#title=`: Assign the title to the column for the current locale, if present. Raise if the column doesn't exist.
 
-`#human_attribute_name(:title_sv)`: Returns "Title (Swedish)" if you have a translation key `i18n.languages.sv = "Swedish"` and "Title (SV)" otherwise.
+`.human_attribute_name(:title_sv)`: Returns "Title (Swedish)" if you have a translation key `i18n.languages.sv = "Swedish"` and "Title (SV)" otherwise.
+
+`.locales_for_column(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically. Suitable for looping in forms.
 
 And the equivalent methods for `body`, of course.
 
@@ -46,7 +48,7 @@ You can validate against the localized columns like `title_sv` if you want.
 
 # Running the tests
 
-Use need Ruby 1.9.2 or better. Do this once:
+Use Ruby 1.9. Do this once:
 
     gem install bundler
     bundle
@@ -74,12 +76,8 @@ Possible improvements to make:
   * Validation that checks that at least one translation for a column exists.
   * Validation that checks that every translation for a column exists.
   * Option to disable fallback.
-  * Class method `.translatable_columns(:title) => [ :title_sv, :title_en ]`
-    to loop over columns to render a form.
   * Scopes like `translated`, `translated_to(locale)`.
   * Support for region locales, like `en-US` and `en-GB`.
-  * Support other things than ActiveRecord models, like Rails helpers,
-    [drapers](https://github.com/jcasimir/draper) and POROs.
 
 -->
 
