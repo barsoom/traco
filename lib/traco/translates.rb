@@ -1,6 +1,6 @@
 module Traco
-  module Translates
-    def translates(*columns)
+  def self.translates(klass, *columns)
+    klass.instance_eval do
 
       @translates_columns ||= []
       @translates_columns |= columns.map(&:to_sym)
@@ -9,7 +9,6 @@ module Traco
       include Traco::InstanceMethods
 
       columns.each do |column|
-
         define_method(column) do
           read_localized_value(column)
         end
@@ -17,10 +16,8 @@ module Traco
         define_method("#{column}=") do |value|
           write_localized_value(column, value)
         end
-
       end
+
     end
   end
 end
-
-ActiveRecord::Base.send :extend, Traco::Translates

@@ -31,7 +31,7 @@ The columns to translate should exist in the database with locale suffixes, e.g.
 Declare these columns in the model:
 
     class Post < ActiveRecord::Base
-      translates :title, :body
+      Traco.translates self, :title, :body
     end
 
 You can still use the `title_sv` accessors in forms and other code, but you also get:

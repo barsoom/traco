@@ -4,15 +4,11 @@ require "traco"
 # See spec/dummy for the Rails app that has the Post model.
 # http://guides.rubyonrails.org/plugins.html#add-an-acts_as-method-to-active-record
 
-describe ActiveRecord::Base, ".translates" do
-
-  it "should be available" do
-    Post.should respond_to :translates
-  end
+describe Traco, ".translates" do
 
   it "should add functionality" do
     Post.new.should_not respond_to :title
-    Post.translates :title, :description
+    Traco.translates Post, :title, :description
     Post.new.should respond_to :title
   end
 
@@ -21,7 +17,7 @@ end
 describe Post, ".locales_for_column" do
 
   before do
-    Post.translates :title
+    Traco.translates Post, :title
   end
 
   it "should list the locales, default first and then alphabetically" do
@@ -38,7 +34,7 @@ describe Post, "#title" do
   let(:post) { Post.new(title_sv: "Hej", title_en: "Halloa", title_fi: "Moi moi") }
 
   before do
-    Post.translates :title
+    Traco.translates Post, :title
     I18n.locale = :sv
     I18n.default_locale = :en
   end
@@ -75,7 +71,7 @@ end
 describe Post, "#title=" do
 
   before do
-    Post.translates :title
+    Traco.translates Post, :title
     I18n.locale = :sv
   end
 
@@ -99,7 +95,7 @@ end
 describe Post, ".human_attribute_name" do
 
   before do
-    Post.translates :title
+    Traco.translates Post, :title
     I18n.locale = :sv
   end
 
