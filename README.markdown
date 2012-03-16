@@ -34,20 +34,24 @@ Declare these columns in the model:
       translates :title, :body
     end
 
-You can still use the `title_sv` accessors in forms and other code, but you also get:
+You can still use the `title_sv` accessors in forms, validations and other code, but you also get:
 
-`#title`:  Show the title in the current locale. If blank, fall back to default locale, then to any locale.
+`#title`:  Shows the title in the current locale. If blank, falls back to default locale, then to any locale.
 
-`#title=`: Assign the title to the column for the current locale, if present. Raise if the column doesn't exist.
+`#title=`: Assigns the title to the column for the current locale, if present. Raises if the column doesn't exist.
 
-`.human_attribute_name(:title_sv)`: Returns "Title (Swedish)" if you have a translation key `i18n.languages.sv = "Swedish"` and "Title (SV)" otherwise.
+`.human_attribute_name(:title_sv)`: Extends this standard method to return "Title (Swedish)" if you have a translation key `i18n.languages.sv = "Swedish"` and "Title (SV)" otherwise. This method is used to build validation error messages.
 
-`.locales_for_column(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically. Suitable for looping in forms.
+`.locales_for_column(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically. Suitable for looping in forms:
+
+    <% locales_for_column(:title) do |locale| %>
+      <p>
+        <%= form.label "title_#{locale}" %>
+        <%= form.text_field "title_#{locale}" %>
+      </p>
+    <% end %>
 
 And the equivalent methods for `body`, of course.
-
-Note that ActiveRecord validations check against the reader method, so if you validate for presence of `title`, it will check in the current locale.
-You can validate against the localized columns like `title_sv` if you want.
 
 
 ## Running the tests
