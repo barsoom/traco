@@ -9,9 +9,13 @@ To store translations outside the model, see Sven Fuchs' [globalize3](https://gi
 
 ## Installation
 
-Add this to your `Gemfile`:
+Add this to your `Gemfile` if you use Bundler 1.1+:
 
     gem 'traco', github: 'barsoom/traco'
+
+Or with an earlier version of Bundler:
+
+    gem 'traco', git: 'git://github.com/barsoom/traco.git'
 
 Then run
 
