@@ -16,6 +16,13 @@ describe ActiveRecord::Base, ".translates" do
     Post.new.should respond_to :title
   end
 
+  it "should be possible to run more than once" do
+    Post.new.should_not respond_to :title, :description
+    Post.translates :title
+    Post.translates :title, :description
+    Post.new.should respond_to :title, :description
+  end
+
 end
 
 describe Post, ".locales_for_column" do
