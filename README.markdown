@@ -50,7 +50,7 @@ Note that ActiveRecord validations check against the reader method, so if you va
 You can validate against the localized columns like `title_sv` if you want.
 
 
-# Running the tests
+## Running the tests
 
     bundle
     rake # or guard
