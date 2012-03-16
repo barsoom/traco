@@ -123,4 +123,14 @@ describe Post, ".human_attribute_name" do
     Post.human_attribute_name(:body_sv).should == "Body sv"
   end
 
+  # ActiveModel::Errors#full_messages passes in an ugly default.
+
+  it "should not yield to passed-in defaults" do
+    Post.human_attribute_name(:title_en, default: "Title en").should == "Titel (engelska)"
+  end
+
+  it "should pass through defaults" do
+    Post.human_attribute_name(:body_sv, default: "Boday").should == "Boday"
+  end
+
 end

@@ -10,7 +10,7 @@ module Traco
     end
 
     def human_attribute_name(attribute, options={})
-      default = super(attribute, { default: "" }.merge(options))
+      default = super(attribute, options.merge(default: ""))
       if !default.present? && attribute.to_s.match(/\A(\w+)_([a-z]{2})\z/)
         column, locale = $1, $2.to_sym
         if translates?(column)
