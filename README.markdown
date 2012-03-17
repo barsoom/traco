@@ -9,7 +9,9 @@ To store translations outside the model, see Sven Fuchs' [globalize3](https://gi
 
 ## Usage
 
-The columns to translate should exist in the database with locale suffixes, e.g. `title_sv` and `title_en`.
+Say you want `Post#title` and `Post#body` to support both English and Swedish values.
+
+Name those database columns with locale suffixes, e.g. `title_sv` and `title_en`. No `title` column.
 
 Declare these columns in the model:
 
@@ -17,7 +19,7 @@ Declare these columns in the model:
       translates :title, :body
     end
 
-You can still use the `title_sv` accessors in forms, validations and other code, but you also get:
+Now, you can still use the `title_sv` accessors in forms, validations and other code, but you also get:
 
 `#title`:  Shows the title in the current locale. If blank, falls back to default locale, then to any locale.
 
