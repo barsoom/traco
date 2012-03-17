@@ -23,7 +23,7 @@ You can still use the `title_sv` accessors in forms, validations and other code,
 
 `#title=`: Assigns the title to the column for the current locale, if present. Raises if the column doesn't exist.
 
-`.human_attribute_name(:title_sv)`: Extends this standard method to return "Title (Swedish)" if you have a translation key `i18n.languages.sv = "Swedish"` and "Title (SV)" otherwise. This method is used to build validation error messages.
+`.human_attribute_name(:title_sv)`: Extends this standard method to return "Title (Swedish)" if you have a translation key `i18n.languages.sv = "Swedish"` and "Title (SV)" otherwise. Rails uses this method to build validation error messages and form labels.
 
 `.locales_for_column(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically. Suitable for looping in forms:
 
