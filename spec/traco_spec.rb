@@ -1,9 +1,6 @@
 require "spec_helper"
 require "traco"
 
-# See spec/dummy for the Rails app that has the Post model.
-# http://guides.rubyonrails.org/plugins.html#add-an-acts_as-method-to-active-record
-
 describe ActiveRecord::Base, ".translates" do
 
   it "should be available" do
