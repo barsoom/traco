@@ -2,11 +2,11 @@ module Traco
   module Translates
     def translates(*columns)
 
-      @translates_columns ||= []
-      @translates_columns |= columns.map(&:to_sym)
-
       extend Traco::ClassMethods
       include Traco::InstanceMethods
+
+      @translates_columns ||= []
+      @translates_columns |= columns.map(&:to_sym)
 
       columns.each do |column|
 
