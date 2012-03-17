@@ -8,7 +8,6 @@ RSpec.configure do |config|
     Object.send(:remove_const, 'Post')
     load 'app/post.rb'
   end
-
 end
 
 # Test against real ActiveRecord models.
