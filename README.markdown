@@ -7,23 +7,6 @@ Inspired by Iain Hecker's [translatable_columns](https://github.com/iain/transla
 To store translations outside the model, see Sven Fuchs' [globalize3](https://github.com/svenfuchs/globalize3).
 
 
-## Installation
-
-Add this to your `Gemfile` if you use Bundler 1.1+:
-
-    gem 'traco', github: 'barsoom/traco'
-
-Or with an earlier version of Bundler:
-
-    gem 'traco', git: 'git://github.com/barsoom/traco.git'
-
-Then run
-
-    bundle
-
-to install it.
-
-
 ## Usage
 
 The columns to translate should exist in the database with locale suffixes, e.g. `title_sv` and `title_en`.
@@ -52,6 +35,23 @@ You can still use the `title_sv` accessors in forms, validations and other code,
     <% end %>
 
 And the equivalent methods for `body`, of course.
+
+
+## Installation
+
+Add this to your `Gemfile` if you use Bundler 1.1+:
+
+    gem 'traco', github: 'barsoom/traco'
+
+Or with an earlier version of Bundler:
+
+    gem 'traco', git: 'git://github.com/barsoom/traco.git'
+
+Then run
+
+    bundle
+
+to install it.
 
 
 ## Running the tests
