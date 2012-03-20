@@ -2,4 +2,3 @@
 Gemfile.lock
 pkg/
 *.gem
-spec/app/*.sqlite3
