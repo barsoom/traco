@@ -1,6 +1,10 @@
 module Traco
   module ClassMethods
 
+    def translatable_columns
+      @translatable_columns
+    end
+
     def locales_for_column(column)
       column_names.grep(/\A#{column}_([a-z]{2})\z/) {
         $1.to_sym
@@ -27,7 +31,7 @@ module Traco
     private
 
     def translates?(column)
-      @translates_columns.include?(column.to_sym)
+      translatable_columns.include?(column.to_sym)
     end
 
     def locale_name(locale)

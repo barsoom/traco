@@ -5,8 +5,8 @@ module Traco
       extend Traco::ClassMethods
       include Traco::InstanceMethods
 
-      @translates_columns ||= []
-      @translates_columns |= columns.map(&:to_sym)
+      @translatable_columns ||= []
+      @translatable_columns |= columns.map(&:to_sym)
 
       columns.each do |column|
 

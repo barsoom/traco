@@ -22,6 +22,18 @@ describe ActiveRecord::Base, ".translates" do
 
 end
 
+describe Post, ".translatable_columns" do
+
+  before do
+    Post.translates :title
+  end
+
+  it "should list the translatable columns" do
+    Post.translatable_columns.should == [ :title ]
+  end
+
+end
+
 describe Post, ".locales_for_column" do
 
   before do
