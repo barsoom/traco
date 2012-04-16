@@ -7,12 +7,12 @@ module Traco
 
     def locales_for_column(column)
       column_names.grep(/\A#{column}_([a-z]{2})\z/) {
-        $1
+        $1.to_sym
       }.sort_by { |locale| 
-        if locale == I18n.default_locale.to_s
+        if locale == I18n.default_locale
           "aa"
         else
-          locale
+          locale.to_s
         end
       }.map { |x|
         x.to_sym
