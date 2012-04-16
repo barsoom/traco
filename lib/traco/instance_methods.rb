@@ -40,6 +40,5 @@ module Traco
       end
     end unless method_defined? :public_send
 
-
   end
 end
