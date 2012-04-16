@@ -6,15 +6,15 @@ module Traco
     end
 
     def locales_for_column(column)
-      column_names.grep(/\A#{column}_([a-z]{2})\z/) {
-        $1.to_sym
-      }.sort_by { |locale|
+      column_names.grep(/\A#{column}_([a-z]{2})\z/).sort_by { |locale| 
         if locale == I18n.default_locale
-         :"0"
+          "aa"
         else
           locale
         end
-      }
+      }.map { |x|
+        x.to_sym
+      }      
     end
 
     def human_attribute_name(attribute, options={})
