@@ -9,10 +9,10 @@ module Traco
       column_names.grep(/\A#{column}_([a-z]{2})\z/) {
         $1
       }.sort_by { |locale| 
-        if locale == I18n.default_locale
+        if locale == I18n.default_locale.to_s
           "aa"
         else
-          locale.to_s
+          locale
         end
       }.map { |x|
         x.to_sym
