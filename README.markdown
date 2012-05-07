@@ -11,7 +11,20 @@ To store translations outside the model, see Sven Fuchs' [globalize3](https://gi
 
 Say you want `Post#title` and `Post#body` to support both English and Swedish values.
 
-Name those database columns with locale suffixes, e.g. `title_sv` and `title_en`. No `title` column.
+Write a migration to get database columns with locale suffixes, e.g. `title_sv` and `title_en`, like:
+
+    class CreatePosts < ActiveRecord::Migration
+      def change
+        create_table :posts do |t|
+          t.string :title_sv, :title_en
+          t.text :body_sv, :body_en
+
+          t.timestamps
+        end
+      end
+    end
+
+Don't create a column named `title` without a suffix, since Traco will define a method with that name.
 
 Declare these columns in the model:
 
@@ -19,7 +32,7 @@ Declare these columns in the model:
       translates :title, :body
     end
 
-Now, you can still use the `title_sv` accessors in forms, validations and other code, but you also get:
+You can still use your accessors like `title_sv` and `title_sv=` in forms, validations and other code, but you also get:
 
 `#title`:  Shows the title in the current locale. If blank, falls back to default locale, then to any locale.
 
