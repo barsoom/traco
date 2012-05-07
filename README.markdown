@@ -31,7 +31,7 @@ Now, you can still use the `title_sv` accessors in forms, validations and other 
 
 `.locales_for_column(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically. Suitable for looping in forms:
 
-    <% locales_for_column(:title) do |locale| %>
+    <% locales_for_column(:title).each do |locale| %>
       <p>
         <%= form.label "title_#{locale}" %>
         <%= form.text_field "title_#{locale}" %>
