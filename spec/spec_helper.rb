@@ -6,6 +6,7 @@ RSpec.configure do |config|
   # Clear class state before each spec.
   config.before(:each) do
     Object.send(:remove_const, 'Post')
+    Object.send(:remove_const, 'SubPost')
     load 'app/post.rb'
   end
 end

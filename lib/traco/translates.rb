@@ -5,8 +5,14 @@ module Traco
       extend Traco::ClassMethods
       include Traco::InstanceMethods
 
-      @translatable_columns ||= []
-      @translatable_columns |= columns.map(&:to_sym)
+      # Don't overwrite values if running multiple times in the same class
+      # or in different classes of an inheritance chain.
+      unless respond_to?(:translatable_columns)
+        class_attribute :translatable_columns
+        self.translatable_columns = []
+      end
+
+      self.translatable_columns |= columns.map(&:to_sym)
 
       columns.each do |column|
 

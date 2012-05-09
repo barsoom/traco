@@ -9,15 +9,23 @@ describe ActiveRecord::Base, ".translates" do
 
   it "should add functionality" do
     Post.new.should_not respond_to :title
-    Post.translates :title, :description
+    Post.translates :title
     Post.new.should respond_to :title
   end
 
   it "should be possible to run more than once" do
-    Post.new.should_not respond_to :title, :description
+    Post.new.should_not respond_to :title, :body
     Post.translates :title
-    Post.translates :title, :description
-    Post.new.should respond_to :title, :description
+    Post.translates :body
+    Post.new.should respond_to :title, :body
+  end
+
+  it "inherits columns from the superclass" do
+    Post.translates :title
+    SubPost.translates :body
+    SubPost.new.should respond_to :title, :body
+    Post.new.should respond_to :title
+    Post.new.should_not respond_to :body
   end
 
 end
