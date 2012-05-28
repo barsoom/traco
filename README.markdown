@@ -1,5 +1,7 @@
 # Traco
 
+[![Build Status](https://secure.travis-ci.org/barsoom/traco.png)](http://travis-ci.org/barsoom/traco)
+
 Translatable columns for Rails 3, stored in the model table itself.
 
 Inspired by Iain Hecker's [translatable_columns](https://github.com/iain/translatable_columns/).
