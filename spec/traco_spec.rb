@@ -59,7 +59,7 @@ end
 
 describe Post, "#title" do
 
-  let(:post) { Post.new(title_sv: "Hej", title_en: "Halloa", title_fi: "Moi moi") }
+  let(:post) { Post.new(:title_sv => "Hej", :title_en => "Halloa", :title_fi => "Moi moi") }
 
   before do
     Post.translates :title
@@ -113,7 +113,7 @@ describe Post, "#title=" do
 
   it "should raise if locale has no column" do
     I18n.locale = :ru
-    -> {
+    lambda {
       post.title = "Privet"
     }.should raise_error(NoMethodError, /title_ru/)
   end
@@ -150,11 +150,11 @@ describe Post, ".human_attribute_name" do
   # ActiveModel::Errors#full_messages passes in an ugly default.
 
   it "should not yield to passed-in defaults" do
-    Post.human_attribute_name(:title_en, default: "Title en").should == "Titel (engelska)"
+    Post.human_attribute_name(:title_en, :default => "Title en").should == "Titel (engelska)"
   end
 
   it "should pass through defaults" do
-    Post.human_attribute_name(:body_sv, default: "Boday").should == "Boday"
+    Post.human_attribute_name(:body_sv, :default => "Boday").should == "Boday"
   end
 
 end
