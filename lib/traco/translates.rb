@@ -11,6 +11,12 @@ module Traco
         class_attribute :translatable_columns
         self.translatable_columns = []
       end
+      
+      # Set fallback method. If no fallback option is given, 
+      # set to default "true" (always fallback)
+      options = columns.extract_options!
+      class_attribute :traco_fallback_method
+      self.traco_fallback_method = options[:fallback]
 
       self.translatable_columns |= columns.map(&:to_sym)
 
