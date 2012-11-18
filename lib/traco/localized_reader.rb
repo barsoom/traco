@@ -1,22 +1,23 @@
 module Traco
-  module InstanceMethods
+  class LocalizedReader
+    def initialize(record, column)
+      @record = record
+      @column = column
+    end
 
-    private
-
-    def read_localized_value(column)
-      locales_for_reading_column(column).each do |locale|
-        value = send("#{column}_#{locale}")
+    def value
+      locales.each do |locale|
+        value = @record.send("#{@column}_#{locale}")
         return value if value.present?
       end
+
       nil
     end
 
-    def write_localized_value(column, value)
-      send("#{column}_#{I18n.locale}=", value)
-    end
+    private
 
-    def locales_for_reading_column(column)
-      self.class.locales_for_column(column).sort_by { |locale|
+    def locales
+      @record.class.locales_for_column(@column).sort_by { |locale|
         locale_sort_value(locale)
       }
     end

@@ -18,7 +18,6 @@ module Traco
       return if respond_to?(:translatable_columns)
 
       extend Traco::ClassMethods
-      include Traco::InstanceMethods
 
       class_attribute :translatable_columns
       self.translatable_columns = []
@@ -30,13 +29,14 @@ module Traco
 
     def define_localized_reader(column)
       define_method(column) do
-        read_localized_value(column)
+        @localized_reader ||= Traco::LocalizedReader.new(self, column)
+        @localized_reader.value
       end
     end
 
     def define_localized_writer(column)
       define_method("#{column}=") do |value|
-        write_localized_value(column, value)
+        send("#{column}_#{I18n.locale}=", value)
       end
     end
   end
