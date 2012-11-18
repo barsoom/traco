@@ -17,12 +17,22 @@ module Traco
 
     def locales_for_reading_column(column)
       self.class.locales_for_column(column).sort_by { |locale|
-        case locale
-        when I18n.locale then "0"
-        when I18n.default_locale then "1"
-        else locale.to_s
-        end
+        locale_sort_value(locale)
       }
+    end
+
+    def locale_sort_value(locale)
+      case locale
+      when I18n.locale
+        # Sort the current locale first.
+        "0"
+      when I18n.default_locale
+        # Sort the default locale second.
+        "1"
+      else
+        # Sort the rest alphabetically.
+        locale.to_s
+      end
     end
   end
 end
