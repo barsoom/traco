@@ -2,7 +2,6 @@ require "spec_helper"
 require "traco"
 
 describe ActiveRecord::Base, ".translates" do
-
   it "should be available" do
     Post.should respond_to :translates
   end
@@ -27,11 +26,9 @@ describe ActiveRecord::Base, ".translates" do
     Post.new.should respond_to :title
     Post.new.should_not respond_to :body
   end
-
 end
 
 describe Post, ".translatable_columns" do
-
   before do
     Post.translates :title
   end
@@ -39,11 +36,9 @@ describe Post, ".translatable_columns" do
   it "should list the translatable columns" do
     Post.translatable_columns.should == [ :title ]
   end
-
 end
 
 describe Post, ".locales_for_column" do
-
   before do
     Post.translates :title
   end
@@ -54,12 +49,12 @@ describe Post, ".locales_for_column" do
       :fi, :en, :sv
     ]
   end
-
 end
 
 describe Post, "#title" do
-
-  let(:post) { Post.new(:title_sv => "Hej", :title_en => "Halloa", :title_fi => "Moi moi") }
+  let(:post) {
+    Post.new(:title_sv => "Hej", :title_en => "Halloa", :title_fi => "Moi moi")
+  }
 
   before do
     Post.translates :title
@@ -93,11 +88,9 @@ describe Post, "#title" do
     post.title_fi = nil
     post.title.should be_nil
   end
-
 end
 
 describe Post, "#title=" do
-
   before do
     Post.translates :title
     I18n.locale = :sv
@@ -117,11 +110,9 @@ describe Post, "#title=" do
       post.title = "Privet"
     }.should raise_error(NoMethodError, /title_ru/)
   end
-
 end
 
 describe Post, ".human_attribute_name" do
-
   before do
     Post.translates :title
     I18n.locale = :sv
@@ -156,5 +147,4 @@ describe Post, ".human_attribute_name" do
   it "should pass through defaults" do
     Post.human_attribute_name(:body_sv, :default => "Boday").should == "Boday"
   end
-
 end
