@@ -1,29 +1,42 @@
 module Traco
   module Translates
     def translates(*columns)
+      set_up_once
+      store_as_translatable_columns columns.map(&:to_sym)
+
+      columns.each do |column|
+        define_localized_reader column
+        define_localized_writer column
+      end
+    end
+
+    private
+
+    # Don't overwrite values if running multiple times in the same
+    # class or in different classes of an inheritance chain.
+    def set_up_once
+      return if respond_to?(:translatable_columns)
 
       extend Traco::ClassMethods
       include Traco::InstanceMethods
 
-      # Don't overwrite values if running multiple times in the same class
-      # or in different classes of an inheritance chain.
-      unless respond_to?(:translatable_columns)
-        class_attribute :translatable_columns
-        self.translatable_columns = []
+      class_attribute :translatable_columns
+      self.translatable_columns = []
+    end
+
+    def store_as_translatable_columns(columns)
+      self.translatable_columns |= columns
+    end
+
+    def define_localized_reader(column)
+      define_method(column) do
+        read_localized_value(column)
       end
+    end
 
-      self.translatable_columns |= columns.map(&:to_sym)
-
-      columns.each do |column|
-
-        define_method(column) do
-          read_localized_value(column)
-        end
-
-        define_method("#{column}=") do |value|
-          write_localized_value(column, value)
-        end
-
+    def define_localized_writer(column)
+      define_method("#{column}=") do |value|
+        write_localized_value(column, value)
       end
     end
   end
