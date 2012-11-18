@@ -24,6 +24,5 @@ module Traco
         end
       }
     end
-
   end
 end
