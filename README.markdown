@@ -36,7 +36,7 @@ Declare these columns in the model:
 
 You can still use your accessors like `title_sv` and `title_sv=` in forms, validations and other code, but you also get:
 
-`#title`:  Shows the title in the current locale. If blank, falls back to default locale, then to any locale.
+`#title`:  Shows the title in the current locale. If blank, falls back to default locale, then to any locale unless a `:fallback` option is present.
 
 `#title=`: Assigns the title to the column for the current locale, if present. Raises if the column doesn't exist.
 
@@ -54,6 +54,22 @@ You can still use your accessors like `title_sv` and `title_sv=` in forms, valid
     <% end %>
 
 And the equivalent methods for `body`, of course.
+
+### Fallback
+
+Traco supports different fallback behavior, configurable by the `:fallback` option:
+  
+    class Post < ActiveRecord::Base
+      translates :title, :body, fallback: :default_locale
+    end
+
+The following options are available:
+
+`true` (default): Falls back to I18n.default__locale, then any locale.
+
+`false`: Do not fall back to other locales.
+
+`:default_locale`: Falls back to I18n.default__locale only.
 
 
 ## Installation
@@ -90,7 +106,6 @@ Possible improvements to make:
 
   * Validation that checks that at least one translation for a column exists.
   * Validation that checks that every translation for a column exists.
-  * Option to disable fallback.
   * Scopes like `translated`, `translated_to(locale)`.
   * Support for region locales, like `en-US` and `en-GB`.
 
