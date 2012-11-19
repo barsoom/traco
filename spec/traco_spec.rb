@@ -88,6 +88,15 @@ describe Post, "#title" do
     post.title_fi = nil
     post.title.should be_nil
   end
+
+  # Had a regression.
+  it "handles multiple columns" do
+    Post.translates :title, :body
+    post.title_sv = "title"
+    post.body_sv = "body"
+    post.title.should == "title"
+    post.body.should == "body"
+  end
 end
 
 describe Post, "#title=" do

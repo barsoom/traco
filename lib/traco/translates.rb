@@ -29,8 +29,9 @@ module Traco
 
     def define_localized_reader(column)
       define_method(column) do
-        @localized_reader ||= Traco::LocalizedReader.new(self, column)
-        @localized_reader.value
+        @localized_readers ||= {}
+        @localized_readers[column] ||= Traco::LocalizedReader.new(self, column)
+        @localized_readers[column].value
       end
     end
 
