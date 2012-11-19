@@ -3,11 +3,6 @@ module Traco
     def translates(*columns)
       set_up_once
       store_as_translatable_columns columns.map(&:to_sym)
-
-      columns.each do |column|
-        define_localized_reader column
-        define_localized_writer column
-      end
     end
 
     private
@@ -25,6 +20,11 @@ module Traco
 
     def store_as_translatable_columns(columns)
       self.translatable_columns |= columns
+
+      columns.each do |column|
+        define_localized_reader column
+        define_localized_writer column
+      end
     end
 
     def define_localized_reader(column)
