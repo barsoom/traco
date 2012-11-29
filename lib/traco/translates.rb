@@ -1,8 +1,9 @@
 module Traco
   module Translates
     def translates(*columns)
+      options = columns.extract_options!
       set_up_once
-      store_as_translatable_columns columns.map(&:to_sym)
+      store_as_translatable_columns columns.map(&:to_sym), options
     end
 
     private
@@ -18,19 +19,27 @@ module Traco
       self.translatable_columns = []
     end
 
-    def store_as_translatable_columns(columns)
+    def store_as_translatable_columns(columns, options)
+      fallback = options.fetch(:fallback, true)
+
       self.translatable_columns |= columns
 
       columns.each do |column|
-        define_localized_reader column
+        define_localized_reader column, :fallback => fallback
         define_localized_writer column
       end
     end
 
-    def define_localized_reader(column)
+    def define_localized_reader(column, options)
+      fallback = options[:fallback]
+
       define_method(column) do
         @localized_readers ||= {}
-        @localized_readers[column] ||= Traco::LocalizedReader.new(self, column)
+        @localized_readers[column] ||= Traco::LocalizedReader.new(
+          self,
+          column,
+          :fallback => fallback
+        )
         @localized_readers[column].value
       end
     end

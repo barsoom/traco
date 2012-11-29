@@ -56,6 +56,18 @@ You can still use your accessors like `title_sv` and `title_sv=` in forms, valid
 And the equivalent methods for `body`, of course.
 
 
+### Disable fallback
+
+if you specify
+
+    class Post < ActiveRecord::Base
+      translates :title, :body,
+        fallback: false
+    end
+
+then `#title` will return `nil` if there is no translation in the current locale, instead of falling back to the default locale.
+
+
 ## Installation
 
 Add this to your `Gemfile` if you use Bundler 1.1+:

@@ -97,6 +97,28 @@ describe Post, "#title" do
     post.title.should == "title"
     post.body.should == "body"
   end
+
+  context "with :fallback => false" do
+    let(:post) {
+      Post.new(:title_sv => "Hej", :title_en => "Halloa")
+    }
+
+    before do
+      Post.translates :title, fallback: false
+      I18n.default_locale = :en
+    end
+
+    it "should not fall back to the default locale if locale has no column" do
+      I18n.locale = :ru
+      post.title.should be_nil
+    end
+
+    it "should not fall back to the default locale if blank" do
+      I18n.locale = :sv
+      post.title_sv = " "
+      post.title.should be_nil
+    end
+  end
 end
 
 describe Post, "#title=" do
