@@ -104,7 +104,7 @@ describe Post, "#title" do
     }
 
     before do
-      Post.translates :title, fallback: false
+      Post.translates :title, :fallback => false
       I18n.default_locale = :en
     end
 
