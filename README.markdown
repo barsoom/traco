@@ -36,7 +36,7 @@ Declare these columns in the model:
 
 You can still use your accessors like `title_sv` and `title_sv=` in forms, validations and other code, but you also get:
 
-`#title`:  Shows the title in the current locale. If blank, falls back to default locale, then to any locale.
+`#title`: Shows the title in the current locale. If blank, falls back to default locale. Otherwise nil.
 
 `#title=`: Assigns the title to the column for the current locale, if present. Raises if the column doesn't exist.
 

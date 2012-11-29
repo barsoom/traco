@@ -76,10 +76,10 @@ describe Post, "#title" do
     post.title.should == "Halloa"
   end
 
-  it "should fall back to any other locale if default locale is blank" do
+  it "should not fall back to any other locale if default locale is blank" do
     post.title_sv = " "
     post.title_en = ""
-    post.title.should == "Moi moi"
+    post.title.should be_nil
   end
 
   it "should return nil if all are blank" do
