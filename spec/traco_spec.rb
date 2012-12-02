@@ -89,6 +89,16 @@ describe Post, "#title" do
     post.title.should be_nil
   end
 
+  it "should be overridable" do
+    class Post
+      def title
+        super.reverse
+      end
+    end
+
+    post.title.should == "jeH"
+  end
+
   # Had a regression.
   it "handles multiple columns" do
     Post.translates :title, :body

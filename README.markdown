@@ -68,6 +68,19 @@ if you specify
 then `#title` will return `nil` if there is no translation in the current locale, instead of falling back to the default locale.
 
 
+### Overriding methods
+
+Methods are defined in an included module, so you can just override them and call Traco's implementation with `super`:
+
+    class Post < ActiveRecord::Base
+      translates :title
+
+      def title
+        super.reverse
+      end
+    end
+
+
 ## Installation
 
 Add this to your `Gemfile` if you use Bundler 1.1+:
