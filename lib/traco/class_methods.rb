@@ -3,8 +3,9 @@ module Traco
     def locales_for_attribute(attribute)
       re = /\A#{attribute}_([a-z]{2})\z/
 
-      column_names.grep(re) { $1.to_sym }.
-        sort_by { |locale| locale_sort_value(locale) }
+      column_names.
+        grep(re) { $1.to_sym }.
+        sort_by(&locale_sort_value)
     end
 
     def human_attribute_name(attribute, options = {})
@@ -20,14 +21,16 @@ module Traco
 
     private
 
-    def locale_sort_value(locale)
-      if locale == I18n.default_locale
-        # Sort the default locale first.
-        "0"
-      else
-        # Sort the rest alphabetically.
-        locale.to_s
-      end
+    def locale_sort_value
+      lambda { |locale|
+        if locale == I18n.default_locale
+          # Sort the default locale first.
+          "0"
+        else
+          # Sort the rest alphabetically.
+          locale.to_s
+        end
+      }
     end
 
     def translates?(attribute)
