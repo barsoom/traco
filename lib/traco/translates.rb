@@ -8,16 +8,18 @@ module Traco
 
     private
 
-    # Don't overwrite values if running multiple times in the same
-    # class or in different classes of an inheritance chain.
+    # Only called once per class or inheritance chain (e.g. once
+    # for the superclass, not at all for subclasses). The separation
+    # is important if we don't want to overwrite values if running
+    # multiple times in the same class or in different classes of
+    # an inheritance chain.
     def set_up_once
       return if respond_to?(:translatable_columns)
 
       class_attribute :traco_instance_methods
-
       class_attribute :translatable_columns
-      self.translatable_columns = []
 
+      self.translatable_columns = []
       extend Traco::ClassMethods
     end
 
@@ -43,11 +45,7 @@ module Traco
       traco_instance_methods.module_eval do
         define_method(column) do
           @localized_readers ||= {}
-          @localized_readers[column] ||= Traco::LocalizedReader.new(
-            self,
-            column,
-            :fallback => fallback
-          )
+          @localized_readers[column] ||= Traco::LocalizedReader.new(self, column, :fallback => fallback)
           @localized_readers[column].value
         end
       end
