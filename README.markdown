@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/barsoom/traco.png)](http://travis-ci.org/barsoom/traco)
 
-Translatable columns for Rails 3, stored in the model table itself.
+Translatable attributes for Rails 3, stored in the model table itself.
 
 Inspired by Iain Hecker's [translatable_columns](https://github.com/iain/translatable_columns/).
 
@@ -26,9 +26,9 @@ Write a migration to get database columns with locale suffixes, e.g. `title_sv` 
       end
     end
 
-Don't create a column named `title` without a suffix, since Traco will define a method with that name.
+Don't create a database column named `title` without a suffix, since Traco will define a method with that name.
 
-Declare these columns in the model:
+Declare the attributes in the model:
 
     class Post < ActiveRecord::Base
       translates :title, :body
@@ -42,11 +42,11 @@ You can still use your accessors like `title_sv` and `title_sv=` in forms, valid
 
 `.human_attribute_name(:title_sv)`: Extends this standard method to return "Title (Swedish)" if you have a translation key `i18n.languages.sv = "Swedish"` and "Title (SV)" otherwise. Rails uses this method to build validation error messages and form labels.
 
-`.translatable_columns`: Returns an array like `[:title, :body]`.
+`.translatable_attributes`: Returns an array like `[:title, :body]`.
 
-`.locales_for_column(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically. Suitable for looping in forms:
+`.locales_for_attribute(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically. Suitable for looping in forms:
 
-    <% Post.locales_for_column(:title).each do |locale| %>
+    <% Post.locales_for_attribute(:title).each do |locale| %>
       <p>
         <%= form.label "title_#{locale}" %>
         <%= form.text_field "title_#{locale}" %>

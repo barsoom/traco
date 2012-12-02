@@ -28,24 +28,24 @@ describe ActiveRecord::Base, ".translates" do
   end
 end
 
-describe Post, ".translatable_columns" do
+describe Post, ".translatable_attributes" do
   before do
     Post.translates :title
   end
 
-  it "should list the translatable columns" do
-    Post.translatable_columns.should == [ :title ]
+  it "should list the translatable attributes" do
+    Post.translatable_attributes.should == [ :title ]
   end
 end
 
-describe Post, ".locales_for_column" do
+describe Post, ".locales_for_attribute" do
   before do
     Post.translates :title
   end
 
   it "should list the locales, default first and then alphabetically" do
     I18n.default_locale = :fi
-    Post.locales_for_column(:title).should == [
+    Post.locales_for_attribute(:title).should == [
       :fi, :en, :sv
     ]
   end

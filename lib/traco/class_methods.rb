@@ -1,9 +1,10 @@
 module Traco
   module ClassMethods
-    def locales_for_column(column)
-      column_names.grep(/\A#{column}_([a-z]{2})\z/) {
-        $1.to_sym
-      }.sort_by { |locale| locale_sort_value(locale) }
+    def locales_for_attribute(attribute)
+      re = /\A#{attribute}_([a-z]{2})\z/
+
+      column_names.grep(re) { $1.to_sym }.
+        sort_by { |locale| locale_sort_value(locale) }
     end
 
     def human_attribute_name(attribute, options = {})
@@ -29,8 +30,8 @@ module Traco
       end
     end
 
-    def translates?(column)
-      translatable_columns.include?(column.to_sym)
+    def translates?(attribute)
+      translatable_attributes.include?(attribute.to_sym)
     end
 
     def locale_name(locale)

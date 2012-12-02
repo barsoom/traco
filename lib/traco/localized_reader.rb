@@ -1,14 +1,14 @@
 module Traco
   class LocalizedReader
-    def initialize(record, column, options)
+    def initialize(record, attribute, options)
       @record = record
-      @column = column
+      @attribute = attribute
       @fallback = options[:fallback]
     end
 
     def value
       locales_to_try.each do |locale|
-        value = @record.send("#{@column}_#{locale}")
+        value = @record.send("#{@attribute}_#{locale}")
         return value if value.present?
       end
 
@@ -18,7 +18,7 @@ module Traco
     private
 
     def locales_to_try
-      @locales_to_try ||= locale_chain & locales_for_column
+      @locales_to_try ||= locale_chain & locales_for_attribute
     end
 
     def locale_chain
@@ -28,8 +28,8 @@ module Traco
       chain
     end
 
-    def locales_for_column
-      @record.class.locales_for_column(@column)
+    def locales_for_attribute
+      @record.class.locales_for_attribute(@attribute)
     end
   end
 end
