@@ -44,14 +44,23 @@ You can still use your accessors like `title_sv` and `title_sv=` in forms, valid
 
 `.translatable_attributes`: Returns an array like `[:title, :body]`.
 
-`.locales_for_attribute(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically. Suitable for looping in forms:
+`.locale_columns(:title)`: Returns an array like `[:title_sv, :title_en]` sorted with default locale first and then alphabetically. Suitable for looping in forms:
 
-    <% Post.locales_for_attribute(:title).each do |locale| %>
+    <% Post.locale_columns(:title).each do |column| %>
       <p>
-        <%= form.label "title_#{locale}" %>
-        <%= form.text_field "title_#{locale}" %>
+        <%= form.label column %>
+        <%= form.text_field column %>
       </p>
     <% end %>
+
+Or perhaps for things like:
+
+    attr_accessible *locale_columns(:name)
+
+    validates *locale_columns(:name),
+      :uniqueness => true
+
+`.locales_for_attribute(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically.
 
 And the equivalent methods for `body`, of course.
 

@@ -8,6 +8,12 @@ module Traco
         sort_by(&locale_sort_value)
     end
 
+    def locale_columns(attribute)
+      locales_for_attribute(attribute).map { |locale|
+        :"#{attribute}_#{locale}"
+      }
+    end
+
     def human_attribute_name(attribute, options = {})
       default = super(attribute, options.merge(:default => ""))
       if default.blank? && attribute.to_s.match(/\A(\w+)_([a-z]{2})\z/)

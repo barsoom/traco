@@ -51,6 +51,19 @@ describe Post, ".locales_for_attribute" do
   end
 end
 
+describe Post, ".locale_columns" do
+  before do
+    Post.translates :title
+  end
+
+  it "should list the columns-with-locale for that attribute, default locale first and then alphabetically" do
+    I18n.default_locale = :fi
+    Post.locale_columns(:title).should == [
+      :title_fi, :title_en, :title_sv
+    ]
+  end
+end
+
 describe Post, "#title" do
   let(:post) {
     Post.new(:title_sv => "Hej", :title_en => "Halloa", :title_fi => "Moi moi")
