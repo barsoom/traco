@@ -2,17 +2,17 @@ require "spec_helper"
 require "traco"
 
 describe ActiveRecord::Base, ".translates" do
-  it "should be available" do
+  it "is available" do
     Post.should respond_to :translates
   end
 
-  it "should add functionality" do
+  it "adds functionality" do
     Post.new.should_not respond_to :title
     Post.translates :title
     Post.new.should respond_to :title
   end
 
-  it "should be possible to run more than once" do
+  it "can be run more than once" do
     Post.new.should_not respond_to :title, :body
     Post.translates :title
     Post.translates :body
@@ -33,7 +33,7 @@ describe Post, ".translatable_attributes" do
     Post.translates :title
   end
 
-  it "should list the translatable attributes" do
+  it "lists the translatable attributes" do
     Post.translatable_attributes.should == [ :title ]
   end
 end
@@ -43,7 +43,7 @@ describe Post, ".locales_for_attribute" do
     Post.translates :title
   end
 
-  it "should list the locales, default first and then alphabetically" do
+  it "lists the locales, default first and then alphabetically" do
     I18n.default_locale = :fi
     Post.locales_for_attribute(:title).should == [
       :fi, :en, :sv
@@ -56,7 +56,7 @@ describe Post, ".locale_columns" do
     Post.translates :title
   end
 
-  it "should list the columns-with-locale for that attribute, default locale first and then alphabetically" do
+  it "lists the columns-with-locale for that attribute, default locale first and then alphabetically" do
     I18n.default_locale = :fi
     Post.locale_columns(:title).should == [
       :title_fi, :title_en, :title_sv
@@ -75,34 +75,34 @@ describe Post, "#title" do
     I18n.default_locale = :en
   end
 
-  it "should give the title in the current locale" do
+  it "gives the title in the current locale" do
     post.title.should == "Hej"
   end
 
-  it "should fall back to the default locale if locale has no column" do
+  it "falls back to the default locale if locale has no column" do
     I18n.locale = :ru
     post.title.should == "Halloa"
   end
 
-  it "should fall back to the default locale if blank" do
+  it "falls back to the default locale if blank" do
     post.title_sv = " "
     post.title.should == "Halloa"
   end
 
-  it "should not fall back to any other locale if default locale is blank" do
+  it "does not fall back to any other locale if default locale is blank" do
     post.title_sv = " "
     post.title_en = ""
     post.title.should be_nil
   end
 
-  it "should return nil if all are blank" do
+  it "returns nil if all are blank" do
     post.title_sv = " "
     post.title_en = ""
     post.title_fi = nil
     post.title.should be_nil
   end
 
-  it "should be overridable" do
+  it "is overridable" do
     class Post
       def title
         super.reverse
@@ -131,12 +131,12 @@ describe Post, "#title" do
       I18n.default_locale = :en
     end
 
-    it "should not fall back to the default locale if locale has no column" do
+    it "does not fall back to the default locale if locale has no column" do
       I18n.locale = :ru
       post.title.should be_nil
     end
 
-    it "should not fall back to the default locale if blank" do
+    it "does not fall back to the default locale if blank" do
       I18n.locale = :sv
       post.title_sv = " "
       post.title.should be_nil
@@ -152,13 +152,13 @@ describe Post, "#title=" do
 
   let(:post) { Post.new }
 
-  it "should assign in the current locale" do
+  it "assigns in the current locale" do
     post.title = "Hej"
     post.title.should == "Hej"
     post.title_sv.should == "Hej"
   end
 
-  it "should raise if locale has no column" do
+  it "raises if locale has no column" do
     I18n.locale = :ru
     lambda {
       post.title = "Privet"
@@ -172,33 +172,33 @@ describe Post, ".human_attribute_name" do
     I18n.locale = :sv
   end
 
-  it "should append a known language name" do
+  it "appends a known language name" do
     Post.human_attribute_name(:title_en).should == "Titel (engelska)"
   end
 
-  it "should use abbreviation when language name is not known" do
+  it "uses abbreviation when language name is not known" do
     Post.human_attribute_name(:title_fi).should == "Titel (FI)"
   end
 
-  it "should yield to defined translations" do
+  it "yields to defined translations" do
     Post.human_attribute_name(:title_sv).should == "Svensk titel"
   end
 
-  it "should pass through the default behavior" do
+  it "passes through the default behavior" do
     Post.human_attribute_name(:title).should == "Titel"
   end
 
-  it "should pass through untranslated columns" do
+  it "passes through untranslated columns" do
     Post.human_attribute_name(:body_sv).should == "Body sv"
   end
 
   # ActiveModel::Errors#full_messages passes in an ugly default.
 
-  it "should not yield to passed-in defaults" do
+  it "does not yield to passed-in defaults" do
     Post.human_attribute_name(:title_en, :default => "Title en").should == "Titel (engelska)"
   end
 
-  it "should pass through defaults" do
+  it "passes through defaults" do
     Post.human_attribute_name(:body_sv, :default => "Boday").should == "Boday"
   end
 end
