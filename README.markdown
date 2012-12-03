@@ -64,7 +64,7 @@ You can also pass multiple attributes if you like:
 
     attr_accessible *locale_columns(:title, :body)
 
-The result will be sorted like `[:title_sv, :title_en, :body_sv, :body_en]`.
+The return value will be sorted like `[:title_sv, :title_en, :body_sv, :body_en]`.
 
 `.locales_for_attribute(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically.
 
