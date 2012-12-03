@@ -55,10 +55,16 @@ You can still use your accessors like `title_sv` and `title_sv=` in forms, valid
 
 Or perhaps for things like:
 
-    attr_accessible *locale_columns(:name)
+    attr_accessible *locale_columns(:title)
 
-    validates *locale_columns(:name),
+    validates *locale_columns(:title),
       :uniqueness => true
+
+You can also pass multiple attributes if you like:
+
+    attr_accessible *locale_columns(:title, :body)
+
+The result will be sorted like `[:title_sv, :title_en, :body_sv, :body_en]`.
 
 `.locales_for_attribute(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically.
 

@@ -8,9 +8,11 @@ module Traco
         sort_by(&locale_sort_value)
     end
 
-    def locale_columns(attribute)
-      locales_for_attribute(attribute).map { |locale|
-        :"#{attribute}_#{locale}"
+    def locale_columns(*attributes)
+      attributes.inject([]) { |memo, attribute|
+        memo += locales_for_attribute(attribute).map { |locale|
+          :"#{attribute}_#{locale}"
+        }
       }
     end
 
