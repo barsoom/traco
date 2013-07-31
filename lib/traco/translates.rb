@@ -30,8 +30,9 @@ module Traco
       # Instance methods are defined on an included module, so your class
       # can just redefine them and call `super`, if you need to.
       unless @traco_instance_methods
-        @traco_instance_methods = Module.new
-        include @traco_instance_methods
+        mod = @traco_instance_methods = Module.new
+        include mod
+        Traco.const_set("InstanceMethods#{mod.object_id}", mod)
       end
 
       attributes.each do |attribute|
