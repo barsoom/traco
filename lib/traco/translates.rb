@@ -16,7 +16,6 @@ module Traco
     def set_up_once
       return if respond_to?(:translatable_attributes)
 
-      class_attribute :traco_instance_methods
       class_attribute :translatable_attributes
 
       self.translatable_attributes = []
@@ -30,8 +29,10 @@ module Traco
 
       # Instance methods are defined on an included module, so your class
       # can just redefine them and call `super`, if you need to.
-      self.traco_instance_methods = Module.new
-      include traco_instance_methods
+      unless @traco_instance_methods
+        @traco_instance_methods = Module.new
+        include @traco_instance_methods
+      end
 
       attributes.each do |attribute|
         define_localized_reader attribute, :fallback => fallback
@@ -42,7 +43,7 @@ module Traco
     def define_localized_reader(attribute, options)
       fallback = options[:fallback]
 
-      traco_instance_methods.module_eval do
+      @traco_instance_methods.module_eval do
         define_method(attribute) do
           @localized_readers ||= {}
           @localized_readers[attribute] ||= Traco::LocalizedReader.new(self, attribute, :fallback => fallback)
@@ -52,7 +53,7 @@ module Traco
     end
 
     def define_localized_writer(attribute)
-      traco_instance_methods.module_eval do
+      @traco_instance_methods.module_eval do
         define_method("#{attribute}=") do |value|
           send("#{attribute}_#{I18n.locale}=", value)
         end
