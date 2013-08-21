@@ -1,5 +1,7 @@
 module Traco
   module Translates
+    TRACO_INSTANCE_METHODS_MODULE_NAME = "TracoInstanceMethods"
+
     def translates(*attributes)
       options = attributes.extract_options!
       set_up_once
@@ -29,10 +31,9 @@ module Traco
 
       # Instance methods are defined on an included module, so your class
       # can just redefine them and call `super`, if you need to.
-      unless @traco_instance_methods
-        mod = @traco_instance_methods = Module.new
-        include mod
-        Traco.const_set("InstanceMethods#{mod.object_id}", mod)
+      # http://thepugautomatic.com/2013/07/dsom/
+      unless const_defined?(TRACO_INSTANCE_METHODS_MODULE_NAME, _search_ancestors = false)
+        include const_set(TRACO_INSTANCE_METHODS_MODULE_NAME, Module.new)
       end
 
       attributes.each do |attribute|
@@ -44,7 +45,7 @@ module Traco
     def define_localized_reader(attribute, options)
       fallback = options[:fallback]
 
-      @traco_instance_methods.module_eval do
+      traco_instance_methods_module.module_eval do
         define_method(attribute) do
           @localized_readers ||= {}
           @localized_readers[attribute] ||= Traco::LocalizedReader.new(self, attribute, :fallback => fallback)
@@ -54,11 +55,15 @@ module Traco
     end
 
     def define_localized_writer(attribute)
-      @traco_instance_methods.module_eval do
+      traco_instance_methods_module.module_eval do
         define_method("#{attribute}=") do |value|
           send("#{attribute}_#{I18n.locale}=", value)
         end
       end
+    end
+
+    def traco_instance_methods_module
+      const_get(TRACO_INSTANCE_METHODS_MODULE_NAME)
     end
   end
 end
