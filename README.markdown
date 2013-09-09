@@ -70,6 +70,8 @@ The return value will be sorted like `[:title_sv, :title_en, :body_sv, :body_en]
 
 And the equivalent methods for `body`, of course.
 
+Please note that your `translates :title, :body` declaration must be called before you call `locale_columns`. Otherwise you will get an error like "NoMethodError: undefined method `locale\_columns' for #\<Class:0x00000003f69188\>".
+
 
 ### Disable fallback
 
