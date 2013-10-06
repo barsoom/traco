@@ -46,7 +46,7 @@ describe Post, ".locales_for_attribute" do
   it "lists the locales, default first and then alphabetically" do
     I18n.default_locale = :fi
     Post.locales_for_attribute(:title).should == [
-      :fi, :en, :sv
+      :fi, :en, :"pt-BR", :sv, 
     ]
   end
 end
@@ -59,15 +59,15 @@ describe Post, ".locale_columns" do
 
   it "lists the columns-with-locale for that attribute, default locale first and then alphabetically" do
     Post.locale_columns(:title).should == [
-      :title_fi, :title_en, :title_sv
+      :title_fi, :title_en, :"title_pt-BR", :title_sv
     ]
   end
 
   it "supports multiple attributes" do
     Post.translates :body
     Post.locale_columns(:body, :title).should == [
-      :body_fi, :body_en, :body_sv,
-      :title_fi, :title_en, :title_sv
+      :body_fi, :body_en, :"body_pt-BR", :body_sv,
+      :title_fi, :title_en, :"title_pt-BR", :title_sv
     ]
   end
 end
