@@ -1,7 +1,9 @@
 module Traco
   module ClassMethods
+    LOCALE_RE = /[a-zA-Z]{2}(?:-[a-zA-Z]{2})?/
+
     def locales_for_attribute(attribute)
-      re = /\A#{attribute}_([a-zA-Z\-]{2,5})\z/
+      re = /\A#{attribute}_(#{LOCALE_RE})\z/
 
       column_names.
         grep(re) { $1.to_sym }.
@@ -18,7 +20,7 @@ module Traco
 
     def human_attribute_name(attribute, options = {})
       default = super(attribute, options.merge(:default => ""))
-      if default.blank? && attribute.to_s.match(/\A(\w+)_([a-zA-Z\-]{2,5})\z/)
+      if default.blank? && attribute.to_s.match(/\A(\w+)_(#{LOCALE_RE})\z/)
         column, locale = $1, $2.to_sym
         if translates?(column)
           return "#{super(column, options)} (#{locale_name(locale)})"
