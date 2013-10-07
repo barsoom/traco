@@ -28,6 +28,8 @@ Write a migration to get database columns with locale suffixes, e.g. `title_sv` 
 
 Don't create a database column named `title` without a suffix, since Traco will define a method with that name.
 
+E.g. `title_pt-BR` is also fine, if you need to use that locale format.
+
 Declare the attributes in the model:
 
     class Post < ActiveRecord::Base
