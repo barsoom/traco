@@ -15,16 +15,18 @@ Say you want `Post#title` and `Post#body` to support both English and Swedish va
 
 Write a migration to get database columns with locale suffixes, e.g. `title_sv` and `title_en`, like:
 
-    class CreatePosts < ActiveRecord::Migration
-      def change
-        create_table :posts do |t|
-          t.string :title_sv, :title_en
-          t.text :body_sv, :body_en
+```ruby
+class CreatePosts < ActiveRecord::Migration
+  def change
+    create_table :posts do |t|
+      t.string :title_sv, :title_en
+      t.text :body_sv, :body_en
 
-          t.timestamps
-        end
-      end
+      t.timestamps
     end
+  end
+end
+```
 
 Don't create a database column named `title` without a suffix, since Traco will define a method with that name.
 
@@ -32,9 +34,11 @@ E.g. `title_pt-BR` is also fine, if you need to use that locale format.
 
 Declare the attributes in the model:
 
-    class Post < ActiveRecord::Base
-      translates :title, :body
-    end
+```ruby
+class Post < ActiveRecord::Base
+  translates :title, :body
+end
+```
 
 You can still use your accessors like `title_sv` and `title_sv=` in forms, validations and other code, but you also get:
 
@@ -48,23 +52,28 @@ You can still use your accessors like `title_sv` and `title_sv=` in forms, valid
 
 `.locale_columns(:title)`: Returns an array like `[:title_sv, :title_en]` sorted with default locale first and then alphabetically. Suitable for looping in forms:
 
-    <% Post.locale_columns(:title).each do |column| %>
-      <p>
-        <%= form.label column %>
-        <%= form.text_field column %>
-      </p>
-    <% end %>
+```erb
+<% Post.locale_columns(:title).each do |column| %>
+  <p>
+    <%= form.label column %>
+    <%= form.text_field column %>
+  </p>
+<% end %>
+```
 
 Or perhaps for things like:
 
-    attr_accessible *locale_columns(:title)
+```ruby
+attr_accessible *locale_columns(:title)
 
-    validates *locale_columns(:title),
-      :uniqueness => true
+validates *locale_columns(:title), :uniqueness => true
+```
 
 You can also pass multiple attributes if you like:
 
-    attr_accessible *locale_columns(:title, :body)
+```ruby
+attr_accessible *locale_columns(:title, :body)
+```
 
 The return value will be sorted like `[:title_sv, :title_en, :body_sv, :body_en]`.
 
@@ -79,10 +88,12 @@ Please note that your `translates :title, :body` declaration must be called befo
 
 if you specify
 
-    class Post < ActiveRecord::Base
-      translates :title, :body,
-        fallback: false
-    end
+```ruby
+class Post < ActiveRecord::Base
+  translates :title, :body,
+    fallback: false
+end
+```
 
 then `#title` will return `nil` if there is no translation in the current locale, instead of falling back to the default locale.
 
@@ -91,20 +102,23 @@ then `#title` will return `nil` if there is no translation in the current locale
 
 Methods are defined in an included module, so you can just override them and call Traco's implementation with `super`:
 
-    class Post < ActiveRecord::Base
-      translates :title
+```ruby
+class Post < ActiveRecord::Base
+  translates :title
 
-      def title
-        super.reverse
-      end
-    end
-
+  def title
+    super.reverse
+  end
+end
+```
 
 ## Installation
 
 Add this to your `Gemfile` if you use Bundler 1.1+:
 
-    gem 'traco'
+```ruby
+gem 'traco'
+```
 
 Then run
 
