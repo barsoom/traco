@@ -18,7 +18,7 @@ module Traco
     private
 
     def locales_to_try
-      @locales_to_try ||= locale_chain & locales_for_attribute
+      locale_chain & locales_for_attribute
     end
 
     def locale_chain

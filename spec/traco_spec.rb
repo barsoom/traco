@@ -128,6 +128,14 @@ describe Post, "#title" do
     post.title.should == "title"
     post.body.should == "body"
   end
+  
+  it "reflects locale change" do
+    post.title.should == "Hej"
+    I18n.locale = :en
+    post.title.should == "Halloa"
+    I18n.locale = :sv
+    post.title.should == "Hej"
+  end
 
   context "with :fallback => false" do
     let(:post) {
