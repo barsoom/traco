@@ -180,6 +180,13 @@ describe Post, "#title=" do
       post.title = "Privet"
     }.should raise_error(NoMethodError, /title_ru/)
   end
+
+  it "can be assigned properly with special locale" do
+    I18n.locale = :"pt-BR"
+    expect {
+      post.title = 'pt-BR'
+    }.to_not raise_error
+  end
 end
 
 describe Post, ".human_attribute_name" do
@@ -380,6 +387,13 @@ describe Article do
       lambda {
         article.title = "Privet"
       }.should raise_error(NoMethodError, /title_ru/)
+    end
+
+    it "can be assigned properly with special locale" do
+      I18n.locale = :"pt-BR"
+      expect {
+        article.title = 'pt-BR'
+      }.to_not raise_error
     end
   end
 
