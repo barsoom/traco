@@ -40,6 +40,17 @@ class Post < ActiveRecord::Base
 end
 ```
 
+If you would like the columns names to be lower case and split by underscore  
+(Which can be expressed in symbol without quotes and does no break `rails_admin`)  
+(e.g. Instead of `title_pt-BR`, you can use `title_pt_br`)  
+You can add an initialzer:
+```ruby
+# config/initializers/traco.rb
+
+# Anything other than this value is assumed to use unmodified format
+Traco.config.attribute_name_format = :ruby
+```
+
 You can still use your accessors like `title_sv` and `title_sv=` in forms, validations and other code, but you also get:
 
 `#title`: Shows the title in the current locale. If blank, falls back to default locale. Otherwise nil.

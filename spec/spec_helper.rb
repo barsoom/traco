@@ -8,6 +8,9 @@ RSpec.configure do |config|
     Object.send(:remove_const, 'Post')
     Object.send(:remove_const, 'SubPost')
     load 'app/post.rb'
+
+    Object.send(:remove_const, 'Article')
+    load 'app/article.rb'
   end
 end
 
@@ -17,6 +20,7 @@ end
 
 require "active_record"
 require "app/post.rb"
+require "app/article.rb"
 
 ActiveRecord::Base.establish_connection :adapter => "sqlite3", :database => ":memory:"
 
@@ -25,6 +29,10 @@ silence_stream(STDOUT) do
     create_table :posts, :force => true do |t|
       t.string :title_sv, :title_en, :title_fi, 'title_pt-BR'
       t.string :body_sv, :body_en, :body_fi, 'body_pt-BR'
+    end
+    create_table :articles, :force => true do |t|
+      t.string :title_sv, :title_en, :title_fi, :'title_pt_br'
+      t.string :body_sv, :body_en, :body_fi, :body_pt_br
     end
   end
 end
