@@ -23,8 +23,12 @@ ActiveRecord::Base.establish_connection :adapter => "sqlite3", :database => ":me
 silence_stream(STDOUT) do
   ActiveRecord::Schema.define(:version => 0) do
     create_table :posts, :force => true do |t|
-      t.string :title_sv, :title_en, :title_fi, 'title_pt-BR'
-      t.string :body_sv, :body_en, :body_fi, 'body_pt-BR'
+      t.string :title_sv, :title_en, :title_fi, :title_pt_br
+      t.string :body_sv, :body_en, :body_fi, :body_pt_br
+    end
+    create_table :articles, :force => true do |t|
+      t.string :title_sv, :title_en, :title_fi, :title_pt_br
+      t.string :body_sv, :body_en, :body_fi, :body_pt_br
     end
   end
 end
