@@ -8,7 +8,7 @@ module Traco
 
     def value
       locales_to_try.each do |locale|
-        value = @record.send("#{@attribute}_#{locale}")
+        value = @record.send(Traco.attribute_name_with_locale(@attribute, locale))
         return value if value.present?
       end
 
