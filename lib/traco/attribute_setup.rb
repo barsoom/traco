@@ -40,18 +40,16 @@ module Traco
     end
 
     def add_attributes(attributes, options)
-      fallback = options.fetch(:fallback, true)
-
       klass.translatable_attributes |= attributes
 
       attributes.each do |attribute|
-        define_localized_reader attribute, fallback: fallback
-        define_localized_writer attribute
+        define_localized_reader attribute, options
+        define_localized_writer attribute, options
       end
     end
 
     def define_localized_reader(attribute, options)
-      fallback = options[:fallback]
+      fallback = options.fetch(:fallback, true)
 
       custom_define_method(attribute) do
         @localized_readers ||= {}
@@ -60,7 +58,7 @@ module Traco
       end
     end
 
-    def define_localized_writer(attribute)
+    def define_localized_writer(attribute, options)
       custom_define_method("#{attribute}=") do |value|
         send("#{attribute}_#{Traco.locale_suffix}=", value)
       end
