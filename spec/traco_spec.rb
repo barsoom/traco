@@ -76,7 +76,7 @@ end
 
 describe Post, "#title" do
   let(:post) {
-    Post.new(:title_sv => "Hej", :title_en => "Halloa", :title_pt_br => "Olá")
+    Post.new(title_sv: "Hej", title_en: "Halloa", title_pt_br: "Olá")
   }
 
   before do
@@ -145,13 +145,13 @@ describe Post, "#title" do
     post.title.should == "Hej"
   end
 
-  context "with :fallback => false" do
+  context "with fallback: false" do
     let(:post) {
-      Post.new(:title_sv => "Hej", :title_en => "Halloa")
+      Post.new(title_sv: "Hej", title_en: "Halloa")
     }
 
     before do
-      Post.translates :title, :fallback => false
+      Post.translates :title, fallback: false
       I18n.default_locale = :en
     end
 
@@ -224,10 +224,10 @@ describe Post, ".human_attribute_name" do
   # ActiveModel::Errors#full_messages passes in an ugly default.
 
   it "does not honor passed-in defaults for locale columns" do
-    Post.human_attribute_name(:title_en, :default => "Title en").should == "Titel (engelska)"
+    Post.human_attribute_name(:title_en, default: "Title en").should == "Titel (engelska)"
   end
 
   it "passes through defaults" do
-    Post.human_attribute_name(:body_sv, :default => "Boday").should == "Boday"
+    Post.human_attribute_name(:body_sv, default: "Boday").should == "Boday"
   end
 end

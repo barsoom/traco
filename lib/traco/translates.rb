@@ -58,7 +58,7 @@ module Traco
       klass.translatable_attributes |= attributes
 
       attributes.each do |attribute|
-        define_localized_reader attribute, :fallback => fallback
+        define_localized_reader attribute, fallback: fallback
         define_localized_writer attribute
       end
     end
@@ -68,7 +68,7 @@ module Traco
 
       custom_define_method(attribute) do
         @localized_readers ||= {}
-        @localized_readers[attribute] ||= Traco::LocalizedReader.new(self, attribute, :fallback => fallback)
+        @localized_readers[attribute] ||= Traco::LocalizedReader.new(self, attribute, fallback: fallback)
         @localized_readers[attribute].value
       end
     end
