@@ -114,7 +114,7 @@ end
 
 ## Installation
 
-Add this to your `Gemfile` if you use Bundler 1.1+:
+Add this to your `Gemfile`:
 
 ```ruby
 gem 'traco'
