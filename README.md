@@ -130,7 +130,7 @@ to install it.
 ## Running the tests
 
     bundle
-    rake # or guard
+    rake
 
 
 <!-- Keeping this a hidden brain dump for now.
