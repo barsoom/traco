@@ -30,7 +30,7 @@ end
 
 Don't create a database column named `title` without a suffix, since Traco will define a method with that name.
 
-E.g. `title_pt-BR` is also fine, if you need to use that locale format.
+If you use a locale format like `pt-BR`, the column name would be `title_pt_br`.
 
 Declare the attributes in the model:
 

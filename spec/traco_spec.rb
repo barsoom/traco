@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "spec_helper"
 require "traco"
 
@@ -44,9 +46,9 @@ describe Post, ".locales_for_attribute" do
   end
 
   it "lists the locales, default first and then alphabetically" do
-    I18n.default_locale = :fi
+    I18n.default_locale = :"pt-BR"
     Post.locales_for_attribute(:title).should == [
-      :fi, :en, :"pt-BR", :sv, 
+      :pt_br, :en, :sv
     ]
   end
 end
@@ -54,27 +56,27 @@ end
 describe Post, ".locale_columns" do
   before do
     Post.translates :title
-    I18n.default_locale = :fi
+    I18n.default_locale = :"pt-BR"
   end
 
   it "lists the columns-with-locale for that attribute, default locale first and then alphabetically" do
     Post.locale_columns(:title).should == [
-      :title_fi, :title_en, :"title_pt-BR", :title_sv
+      :title_pt_br, :title_en, :title_sv
     ]
   end
 
   it "supports multiple attributes" do
     Post.translates :body
     Post.locale_columns(:body, :title).should == [
-      :body_fi, :body_en, :"body_pt-BR", :body_sv,
-      :title_fi, :title_en, :"title_pt-BR", :title_sv
+      :body_pt_br, :body_en, :body_sv,
+      :title_pt_br, :title_en, :title_sv
     ]
   end
 end
 
 describe Post, "#title" do
   let(:post) {
-    Post.new(:title_sv => "Hej", :title_en => "Halloa", :title_fi => "Moi moi")
+    Post.new(:title_sv => "Hej", :title_en => "Halloa", :title_pt_br => "Olá")
   }
 
   before do
@@ -85,6 +87,12 @@ describe Post, "#title" do
 
   it "gives the title in the current locale" do
     post.title.should == "Hej"
+  end
+
+  it "handles dashed locales" do
+    I18n.locale = :"pt-BR"
+    post.title_pt_br.should == "Olá"
+    post.title.should == "Olá"
   end
 
   it "falls back to the default locale if locale has no column" do
@@ -106,7 +114,7 @@ describe Post, "#title" do
   it "returns nil if all are blank" do
     post.title_sv = " "
     post.title_en = ""
-    post.title_fi = nil
+    post.title_pt_br = nil
     post.title.should be_nil
   end
 
@@ -163,15 +171,20 @@ end
 describe Post, "#title=" do
   before do
     Post.translates :title
-    I18n.locale = :sv
   end
 
   let(:post) { Post.new }
 
   it "assigns in the current locale" do
+    I18n.locale = :sv
     post.title = "Hej"
-    post.title.should == "Hej"
     post.title_sv.should == "Hej"
+  end
+
+  it "handles dashed locales" do
+    I18n.locale = :"pt-BR"
+    post.title = "Olá"
+    post.title_pt_br.should == "Olá"
   end
 
   it "raises if locale has no column" do
@@ -188,29 +201,29 @@ describe Post, ".human_attribute_name" do
     I18n.locale = :sv
   end
 
-  it "appends a known language name" do
-    Post.human_attribute_name(:title_en).should == "Titel (engelska)"
-  end
-
-  it "uses abbreviation when language name is not known" do
-    Post.human_attribute_name(:title_fi).should == "Titel (FI)"
-  end
-
-  it "yields to defined translations" do
+  it "uses explicit translations if present" do
     Post.human_attribute_name(:title_sv).should == "Svensk titel"
   end
 
-  it "passes through the default behavior" do
+  it "appends translated language name if present" do
+    Post.human_attribute_name(:title_en).should == "Titel (engelska)"
+  end
+
+  it "appends an abbreviation when language name is not translated" do
+    Post.human_attribute_name(:title_pt_br).should == "Titel (PT-BR)"
+  end
+
+  it "passes through the default behavior for untranslated attributes" do
     Post.human_attribute_name(:title).should == "Titel"
   end
 
-  it "passes through untranslated columns" do
+  it "passes through untranslated attributes even if the name suggests it's translated" do
     Post.human_attribute_name(:body_sv).should == "Body sv"
   end
 
   # ActiveModel::Errors#full_messages passes in an ugly default.
 
-  it "does not yield to passed-in defaults" do
+  it "does not honor passed-in defaults for locale columns" do
     Post.human_attribute_name(:title_en, :default => "Title en").should == "Titel (engelska)"
   end
 

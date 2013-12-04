@@ -1,6 +1,6 @@
 module Traco
   module ClassMethods
-    LOCALE_RE = /[a-zA-Z]{2}(?:-[a-zA-Z]{2})?/
+    LOCALE_RE = /[a-zA-Z]{2}(?:_[a-zA-Z]{2})?/
 
     def locales_for_attribute(attribute)
       re = /\A#{attribute}_(#{LOCALE_RE})\z/
@@ -20,12 +20,14 @@ module Traco
 
     def human_attribute_name(attribute, options = {})
       default = super(attribute, options.merge(:default => ""))
-      if default.blank? && attribute.to_s.match(/\A(\w+)_(#{LOCALE_RE})\z/)
+
+      if default.blank? && attribute.to_s.match(/\A(\w+?)_(#{LOCALE_RE})\z/)
         column, locale = $1, $2.to_sym
         if translates?(column)
           return "#{super(column, options)} (#{locale_name(locale)})"
         end
       end
+
       super
     end
 
@@ -33,7 +35,7 @@ module Traco
 
     def locale_sort_value
       lambda { |locale|
-        if locale == I18n.default_locale
+        if locale == Traco.locale_suffix(I18n.default_locale)
           # Sort the default locale first.
           "0"
         else
@@ -48,7 +50,8 @@ module Traco
     end
 
     def locale_name(locale)
-      I18n.t(locale, :scope => :"i18n.languages", :default => locale.to_s.upcase)
+      default = locale.to_s.upcase.sub("_", "-")
+      I18n.t(locale, :scope => :"i18n.languages", :default => default)
     end
   end
 end

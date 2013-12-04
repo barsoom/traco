@@ -8,7 +8,7 @@ module Traco
 
     def value
       locales_to_try.each do |locale|
-        value = @record.send("#{@attribute}_#{locale}")
+        value = @record.send("#{@attribute}_#{Traco.locale_suffix(locale)}")
         return value if value.present?
       end
 
@@ -25,7 +25,7 @@ module Traco
       chain = []
       chain << I18n.locale
       chain << I18n.default_locale if @fallback
-      chain
+      chain.map { |locale| Traco.locale_suffix(locale) }
     end
 
     def locales_for_attribute
