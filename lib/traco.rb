@@ -5,7 +5,7 @@ require "traco/localized_reader"
 
 module Traco
   # E.g. :sv -> :sv, :"pt-BR" -> :pt_br
-  def self.locale_suffix(locale = I18n.locale)
+  def self.locale_suffix(locale)
     locale.to_s.downcase.sub("-", "_").to_sym
   end
 end

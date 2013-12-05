@@ -60,7 +60,8 @@ module Traco
 
     def define_localized_writer(attribute, options)
       custom_define_method("#{attribute}=") do |value|
-        send("#{attribute}_#{Traco.locale_suffix}=", value)
+        suffix = Traco.locale_suffix(I18n.locale)
+        send("#{attribute}_#{suffix}=", value)
       end
     end
 
