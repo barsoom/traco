@@ -84,20 +84,15 @@ And the equivalent methods for `body`, of course.
 Please note that your `translates :title, :body` declaration must be called before you call `locale_columns`. Otherwise you will get an error like "NoMethodError: undefined method `locale\_columns' for #\<Class:0x00000003f69188\>".
 
 
-### Disable fallback
+### Fallbacks
 
-if you specify
+By default, Traco will fall back to the default locale if there is no translation in the current locale.
 
-```ruby
-class Post < ActiveRecord::Base
-  translates :title, :body,
-    fallback: false
-end
-```
+You can specify e.g. `translates :title, fallback: false` to never fall back and instead return `nil`.
 
-then `#title` will return `nil` if there is no translation in the current locale, instead of falling back to the default locale.
+You can specify e.g. `translates :title, fallback: :any` to fall back first to the default locale, then to any other locale.
 
-If you still want to fall back in some cases, call `post.title(fallback: true)`.
+You can override the default fallback strategy with a parameter passed to the reader: `post.title(fallback: :any)`.
 
 
 ### Overriding methods

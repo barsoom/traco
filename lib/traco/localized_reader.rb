@@ -24,7 +24,8 @@ module Traco
     def locale_chain
       chain = []
       chain << I18n.locale
-      chain << I18n.default_locale if @fallback
+      chain << I18n.default_locale    if @fallback
+      chain += I18n.available_locales if @fallback == :any
       chain.map { |locale| Traco.locale_suffix(locale) }
     end
 

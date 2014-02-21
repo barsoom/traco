@@ -177,6 +177,24 @@ describe Post, "#title" do
       post.title(fallback: true).should == "Halloa"
     end
   end
+
+  context "when the translation was defined with fallback: :any" do
+    before do
+      Post.translates :title, fallback: :any
+      I18n.default_locale = :en
+      I18n.locale = :"pt-BR"
+    end
+
+    it "falls back to any locale, not just the default" do
+      post = Post.new(title_en: "", title_pt_br: "", title_sv: "Hej")
+      post.title.should == "Hej"
+    end
+
+    it "prefers the default locale" do
+      post = Post.new(title_en: "Hello", title_pt_br: "", title_sv: "Hej")
+      post.title.should == "Hello"
+    end
+  end
 end
 
 describe Post, "#title=" do
