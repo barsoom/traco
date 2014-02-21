@@ -49,9 +49,11 @@ module Traco
     end
 
     def define_localized_reader(attribute, options)
-      fallback = options.fetch(:fallback, true)
+      default_fallback = options.fetch(:fallback, true)
 
-      custom_define_method(attribute) do
+      custom_define_method(attribute) do |method_opts = {}|
+        fallback = method_opts.fetch(:fallback, default_fallback)
+
         @localized_readers ||= {}
         @localized_readers[attribute] ||= Traco::LocalizedReader.new(self, attribute, fallback: fallback)
         @localized_readers[attribute].value

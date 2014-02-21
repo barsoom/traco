@@ -97,6 +97,8 @@ end
 
 then `#title` will return `nil` if there is no translation in the current locale, instead of falling back to the default locale.
 
+If you still want to fall back in some cases, call `post.title(fallback: true)`.
+
 
 ### Overriding methods
 
@@ -144,7 +146,6 @@ Possible improvements to make:
 
   * Validation that checks that at least one translation for a column exists.
   * Validation that checks that every translation for a column exists.
-  * Option to disable fallback.
   * Scopes like `translated`, `translated_to(locale)`.
   * Support for region locales, like `en-US` and `en-GB`.
 

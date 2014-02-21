@@ -111,6 +111,12 @@ describe Post, "#title" do
     post.title.should be_nil
   end
 
+  it "does not fall back if called with fallback: false" do
+    I18n.locale = :sv
+    post.title_sv = ""
+    post.title(fallback: false).should be_nil
+  end
+
   it "returns nil if all are blank" do
     post.title_sv = " "
     post.title_en = ""
@@ -136,7 +142,7 @@ describe Post, "#title" do
     post.title.should == "title"
     post.body.should == "body"
   end
-  
+
   it "reflects locale change" do
     post.title.should == "Hej"
     I18n.locale = :en
@@ -145,7 +151,7 @@ describe Post, "#title" do
     post.title.should == "Hej"
   end
 
-  context "with fallback: false" do
+  context "when the translation was defined with fallback: false" do
     let(:post) {
       Post.new(title_sv: "Hej", title_en: "Halloa")
     }
@@ -164,6 +170,11 @@ describe Post, "#title" do
       I18n.locale = :sv
       post.title_sv = " "
       post.title.should be_nil
+    end
+
+    it "still falls back if called with fallback: true" do
+      I18n.locale = :ru
+      post.title(fallback: true).should == "Halloa"
     end
   end
 end
