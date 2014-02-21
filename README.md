@@ -94,6 +94,8 @@ You can specify e.g. `translates :title, fallback: :any` to fall back first to t
 
 You can override the default fallback strategy with a parameter passed to the reader: `post.title(fallback: :any)`.
 
+If you need to declare the default locale fallback, do `post.title(fallback: :default)`.
+
 
 ### Overriding methods
 

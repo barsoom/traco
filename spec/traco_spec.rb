@@ -172,9 +172,9 @@ describe Post, "#title" do
       post.title.should be_nil
     end
 
-    it "still falls back if called with fallback: true" do
+    it "still falls back if called with fallback: :default" do
       I18n.locale = :ru
-      post.title(fallback: true).should == "Halloa"
+      post.title(fallback: :default).should == "Halloa"
     end
   end
 
