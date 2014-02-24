@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0
+
+* Introduce `.current_locale_column`, e.g. `Post.current_locale_column(:title)  # => :title_sv`.
+
 ## 3.0.0
 
 * Backwards incompatible: `fallback: true` is now `fallback: :default`. Since this was the implicit default value, you shouldn't have a problem unless you explicitly declared this value.

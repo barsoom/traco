@@ -18,6 +18,10 @@ module Traco
       }
     end
 
+    def current_locale_column(attribute)
+      :"#{attribute}_#{I18n.locale}"
+    end
+
     def human_attribute_name(attribute, options = {})
       default = super(attribute, options.merge(default: ""))
 

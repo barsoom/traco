@@ -77,6 +77,8 @@ attr_accessible *locale_columns(:title, :body)
 
 The return value will be sorted like `[:title_sv, :title_en, :body_sv, :body_en]`.
 
+`.current_locale_column(:title)`: Returns `:title_sv` if `:sv` is the current locale. Suitable for some SQL queries, such as sorting.
+
 `.locales_for_attribute(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically.
 
 And the equivalent methods for `body`, of course.

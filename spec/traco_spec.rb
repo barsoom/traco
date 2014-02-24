@@ -74,6 +74,17 @@ describe Post, ".locale_columns" do
   end
 end
 
+describe Post, ".current_locale_column" do
+  before do
+    Post.translates :title
+  end
+
+  it "returns the column name for the current locale" do
+    I18n.locale = :sv
+    Post.current_locale_column(:title).should == :title_sv
+  end
+end
+
 describe Post, "#title" do
   let(:post) {
     Post.new(title_sv: "Hej", title_en: "Halloa", title_pt_br: "Olá")
