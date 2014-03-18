@@ -155,7 +155,7 @@ Possible improvements to make:
 
 By [Barsoom](http://barsoom.se) under the MIT license:
 
->  Copyright (c) 2014 Barsoom AB
+>  Copyright © 2012–2014 Barsoom AB
 >
 >  Permission is hereby granted, free of charge, to any person obtaining a copy
 >  of this software and associated documentation files (the "Software"), to deal
