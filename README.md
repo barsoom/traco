@@ -6,7 +6,7 @@ Translatable attributes for Rails 3 and 4 (Ruby 1.9+), stored in the model table
 
 Inspired by Iain Hecker's [translatable_columns](https://github.com/iain/translatable_columns/).
 
-To store translations outside the model, see Sven Fuchs' [globalize3](https://github.com/svenfuchs/globalize3).
+To store translations outside the model, see Sven Fuchs' [Globalize](https://github.com/globalize/globalize).
 
 
 ## Usage
@@ -155,7 +155,7 @@ Possible improvements to make:
 
 By [Barsoom](http://barsoom.se) under the MIT license:
 
->  Copyright (c) 2012 Barsoom AB
+>  Copyright (c) 2014 Barsoom AB
 >
 >  Permission is hereby granted, free of charge, to any person obtaining a copy
 >  of this software and associated documentation files (the "Software"), to deal
