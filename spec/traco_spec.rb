@@ -128,6 +128,14 @@ describe Post, "#title" do
     expect(post.title(fallback: false)).to be_nil
   end
 
+  # Had a bug: https://github.com/barsoom/traco/issues/25
+  it "does not incorrectly memoize fallback state" do
+    I18n.locale = :sv
+    post.title_sv = ""
+    expect(post.title(fallback: :any)).not_to be_nil
+    expect(post.title(fallback: false)).to be_nil
+  end
+
   it "returns nil if all are blank" do
     post.title_sv = " "
     post.title_en = ""
