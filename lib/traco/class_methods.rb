@@ -19,7 +19,7 @@ module Traco
     end
 
     def current_locale_column(attribute)
-      :"#{attribute}_#{I18n.locale}"
+      :"#{attribute}_#{I18n.locale.to_s.downcase.sub("-", "_")}"
     end
 
     def human_attribute_name(attribute, options = {})

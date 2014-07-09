@@ -83,6 +83,11 @@ describe Post, ".current_locale_column" do
     I18n.locale = :sv
     expect(Post.current_locale_column(:title)).to eq :title_sv
   end
+
+  it "returns the column name with right format for the current locale with region identifier" do
+    I18n.locale = :"pt-BR"
+    expect(Post.current_locale_column(:title)).to eq :title_pt_br
+  end
 end
 
 describe Post, "#title" do
