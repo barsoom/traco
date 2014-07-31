@@ -36,7 +36,7 @@ describe Post, ".translatable_attributes" do
   end
 
   it "lists the translatable attributes" do
-    expect(Post.translatable_attributes).to match_array [ :title ]
+    expect(Post.translatable_attributes).to eq [ :title ]
   end
 end
 
@@ -47,7 +47,7 @@ describe Post, ".locales_for_attribute" do
 
   it "lists the locales, default first and then alphabetically" do
     I18n.default_locale = :"pt-BR"
-    expect(Post.locales_for_attribute(:title)).to match_array [
+    expect(Post.locales_for_attribute(:title)).to eq [
       :pt_br, :en, :sv
     ]
   end
@@ -60,14 +60,14 @@ describe Post, ".locale_columns" do
   end
 
   it "lists the columns-with-locale for that attribute, default locale first and then alphabetically" do
-    expect(Post.locale_columns(:title)).to match_array [
+    expect(Post.locale_columns(:title)).to eq [
       :title_pt_br, :title_en, :title_sv
     ]
   end
 
   it "supports multiple attributes" do
     Post.translates :body
-    expect(Post.locale_columns(:body, :title)).to match_array [
+    expect(Post.locale_columns(:body, :title)).to eq [
       :body_pt_br, :body_en, :body_sv,
       :title_pt_br, :title_en, :title_sv
     ]
