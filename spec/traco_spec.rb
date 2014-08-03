@@ -3,6 +3,26 @@
 require "spec_helper"
 require "traco"
 
+describe Traco, ".split_localized_column" do
+  subject { described_class }
+
+  it "returns attribute and locale" do
+    expect(subject.split_localized_column("title_sv")).to eq [:title, :sv]
+  end
+
+  it "handles normalized locales" do
+    expect(subject.split_localized_column("title_pt_br")).to eq [:title, :"pt-BR"]
+  end
+
+  it "returns nil if column is not localized" do
+    expect(subject.split_localized_column("title")).to be_nil
+  end
+
+  it "returns nil if column is not localized but with undercores" do
+    expect(subject.split_localized_column("long_title")).to be_nil
+  end
+end
+
 describe ActiveRecord::Base, ".translates" do
   it "is available" do
     expect(Post).to respond_to :translates
@@ -21,6 +41,12 @@ describe ActiveRecord::Base, ".translates" do
     expect(Post.new).to respond_to :title, :body
   end
 
+  it "allows to define several attributes at once" do
+    expect(Post.new).not_to respond_to :title, :body
+    Post.translates :title, :body
+    expect(Post.new).to respond_to :title, :body
+  end
+
   it "inherits columns from the superclass" do
     Post.translates :title
     SubPost.translates :body
@@ -36,38 +62,59 @@ describe Post, ".translatable_attributes" do
   end
 
   it "lists the translatable attributes" do
-    expect(Post.translatable_attributes).to match_array [ :title ]
+    expect(Post.translatable_attributes).to eq [ :title ]
+  end
+
+  it "inherits attributes from superclass to a subclass" do
+    SubPost.translates :body
+    expect(SubPost.translatable_attributes).to eq [ :title, :body ]
+  end
+
+  it "doesn't inherit attributes from a subclass to superclass" do
+    SubPost.translates :body
+    expect(Post.translatable_attributes).to eq [ :title ]
   end
 end
 
 describe Post, ".locales_for_attribute" do
   before do
     Post.translates :title
+    I18n.locale = :"pt-BR"
   end
 
-  it "lists the locales, default first and then alphabetically" do
-    I18n.default_locale = :"pt-BR"
-    expect(Post.locales_for_attribute(:title)).to match_array [
-      :pt_br, :en, :sv
-    ]
+  it "lists the current locale with :any locale fallback" do
+    expect(Traco).to receive(:locale_with_fallbacks).with(:"pt-BR", :any).and_return([:"pt-BR", :en, :sv])
+    expect(Post.locales_for_attribute(:title)).to eq [ :"pt-BR", :en, :sv ]
+  end
+
+  it "doesn't include a locale if there's no corresponding column for it" do
+    expect(Traco).to receive(:locale_with_fallbacks).with(:"pt-BR", :any).and_return([:"pt-BR", :ru])
+    expect(Post.locales_for_attribute(:title)).to eq [ :"pt-BR" ]
   end
 end
 
 describe Post, ".locale_columns" do
   before do
     Post.translates :title
-    I18n.default_locale = :"pt-BR"
+    I18n.locale = :"pt-BR"
   end
 
-  it "lists the columns-with-locale for that attribute, default locale first and then alphabetically" do
-    expect(Post.locale_columns(:title)).to match_array [
+  it "lists the columns-with-locale for current locale with :any locale fallback" do
+    expect(Traco).to receive(:locale_with_fallbacks).with(:"pt-BR", :any).and_return([:"pt-BR", :en, :sv])
+    expect(Post.locale_columns(:title)).to eq [
       :title_pt_br, :title_en, :title_sv
     ]
   end
 
+  it "doesn't include a column-with-locale if it doesn't exist" do
+    expect(Traco).to receive(:locale_with_fallbacks).with(:"pt-BR", :any).and_return([:"pt-BR", :ru])
+    expect(Post.locale_columns(:title)).to eq [ :title_pt_br ]
+  end
+
   it "supports multiple attributes" do
     Post.translates :body
-    expect(Post.locale_columns(:body, :title)).to match_array [
+    expect(Traco).to receive(:locale_with_fallbacks).with(:"pt-BR", :any).twice.and_return([:"pt-BR", :en, :sv])
+    expect(Post.locale_columns(:body, :title)).to eq [
       :body_pt_br, :body_en, :body_sv,
       :title_pt_br, :title_en, :title_sv
     ]
