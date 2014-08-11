@@ -1,5 +1,6 @@
 require "traco/version"
 require "traco/attributes"
+require "traco/class_methods"
 require "traco/locale_fallbacks"
 require "traco/translates"
 
@@ -28,19 +29,20 @@ module Traco
   #   Traco.split_localized_column("title_pt_br")  # => [:title, :"pt-BR"]
   #   Traco.split_localized_column("unlocalized")  # => nil
   def self.split_localized_column(column)
-    if (md = column.to_s.match(COLUMN_RE))
-      attribute = md[:attribute]
+    match_data = column.to_s.match(COLUMN_RE)
+    return unless match_data
 
-      primary_locale = md[:primary]
-      locale =
-        if (extended_locale = md[:extended])
-          "#{primary_locale}-#{extended_locale.upcase}"
-        else
-          primary_locale
-        end
+    attribute       = match_data[:attribute]
+    primary_locale  = match_data[:primary]
+    extended_locale = match_data[:extended]
 
-      [attribute.to_sym, locale.to_sym]
+    if extended_locale
+      locale = "#{primary_locale}-#{extended_locale.upcase}"
+    else
+      locale = primary_locale
     end
+
+    [ attribute.to_sym, locale.to_sym ]
   end
 
   def self.locale_name(locale)

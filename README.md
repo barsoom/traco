@@ -134,6 +134,11 @@ to install it.
     rake
 
 
+## Benchmark
+
+    ruby benchmarks/overhead.rb
+
+
 <!-- Keeping this a hidden brain dump for now.
 
 ## TODO

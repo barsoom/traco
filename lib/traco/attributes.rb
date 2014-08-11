@@ -26,7 +26,8 @@ module Traco
         def #{attribute}(options = {})
           default_fallback = #{@options.fetch(:fallback, LocaleFallbacks::DEFAULT_FALLBACK).inspect}
           fallback = options.fetch(:fallback, default_fallback)
-          columns_to_try = self.class.locale_columns_for_attribute(:#{attribute}, fallback)
+
+          columns_to_try = self.class._locale_columns_for_attribute(:#{attribute}, fallback)
           columns_to_try.each do |column|
             value = send(column)
             return value if value.present?
@@ -40,7 +41,7 @@ module Traco
     def define_writer(attribute)
       class_eval <<-EOM, __FILE__, __LINE__ + 1
         def #{attribute}=(value)
-          column = Traco.column(:#{attribute}, I18n.locale).to_s << "="
+          column = Traco.column(:#{attribute}, I18n.locale).to_s + "="
           send(column, value)
         end
       EOM
@@ -53,6 +54,7 @@ module Traco
     # an inheritance chain.
     def self.ensure_translatable_attributes(base)
       return if base.respond_to?(:translatable_attributes)
+
       base.class_attribute :translatable_attributes
       base.translatable_attributes = []
     end
@@ -67,5 +69,3 @@ module Traco
     end
   end
 end
-
-require "traco/attributes/class_methods"
