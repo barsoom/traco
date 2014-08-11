@@ -155,6 +155,17 @@ Possible improvements to make:
 
 -->
 
+## Contributors
+
+* [Henrik Nyh](http://henrik.nyh.se)
+* Andrii Malyshko
+* Tobias Bohwalli
+* Mario Alberto Chavez
+* Philip Arndt
+* Leung Ho Kuen
+* Fernando Morgenstern
+* Tomáš Horáček
+* Joakim Kolsjö
 
 ## Credits and license
 
