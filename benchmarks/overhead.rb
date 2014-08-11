@@ -9,7 +9,7 @@ require "traco"
 ActiveRecord::Base.establish_connection adapter: "sqlite3", database: ":memory:"
 
 I18n.enforce_available_locales = false
-I18n.available_locales = [:en, :de, :sv]
+I18n.available_locales = [ :en, :de, :sv ]
 I18n.default_locale = :en
 I18n.locale = :sv
 
