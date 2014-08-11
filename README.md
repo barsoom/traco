@@ -155,6 +155,16 @@ Possible improvements to make:
 
 -->
 
+## Contributors
+
+* [Henrik Nyh](http://henrik.nyh.se)
+* Tobias Bohwalli
+* Mario Alberto Chavez
+* Philip Arndt
+* PikachuEXE
+* Fernando Morgenstern
+* Tomáš Horáček
+* Joakim Kolsjö
 
 ## Credits and license
 
