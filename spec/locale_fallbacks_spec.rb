@@ -10,7 +10,7 @@ describe Traco::LocaleFallbacks do
     end
 
     it "raises ArgumentError if invalid argument passed in" do
-      expect{ described_class.new(:invalid) }.to raise_error(ArgumentError)
+      expect { described_class.new(:invalid) }.to raise_error(ArgumentError)
     end
   end
 
