@@ -1,3 +1,5 @@
+# Intended to be API compatible with https://github.com/svenfuchs/i18n/blob/master/lib/i18n/locale/fallbacks.rb
+
 module Traco
   class LocaleFallbacks
     OPTIONS = [
