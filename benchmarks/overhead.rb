@@ -1,3 +1,6 @@
+# This benchmark tests how fast a Traco-wrapped attribute is
+# compared to the plain Active Record attribute.
+
 require "bundler/setup"
 require "benchmark/ips"
 require "active_record"
