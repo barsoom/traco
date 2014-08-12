@@ -1,5 +1,6 @@
 require "traco/version"
 require "traco/attributes"
+require "traco/class_methods"
 require "traco/locale_fallbacks"
 require "traco/translates"
 

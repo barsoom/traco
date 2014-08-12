@@ -69,5 +69,3 @@ module Traco
     end
   end
 end
-
-require "traco/attributes/class_methods"
