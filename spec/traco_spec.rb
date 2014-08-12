@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-require "spec_helper_models"
 require "spec_helper"
+require "spec_helper_models"
 require "traco"
 
 describe Traco, ".split_localized_column" do
