@@ -4,9 +4,11 @@ require "traco/locale_fallbacks"
 describe Traco::LocaleFallbacks do
   describe "#initialize" do
     it "accepts :default, :any, and false as valid arguments" do
-      Traco::LocaleFallbacks.new(:default)
-      Traco::LocaleFallbacks.new(:any)
-      Traco::LocaleFallbacks.new(false)
+      expect {
+        Traco::LocaleFallbacks.new(:default)
+        Traco::LocaleFallbacks.new(:any)
+        Traco::LocaleFallbacks.new(false)
+      }.not_to raise_error
     end
 
     it "raises ArgumentError if invalid argument passed in" do
