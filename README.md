@@ -158,10 +158,11 @@ Possible improvements to make:
 ## Contributors
 
 * [Henrik Nyh](http://henrik.nyh.se)
+* Andrii Malyshko
 * Tobias Bohwalli
 * Mario Alberto Chavez
 * Philip Arndt
-* PikachuEXE
+* Leung Ho Kuen
 * Fernando Morgenstern
 * Tomáš Horáček
 * Joakim Kolsjö
