@@ -19,7 +19,7 @@ describe Traco::LocaleFallbacks do
 
   describe "#[]" do
         context "with the :default option" do
-      it "returns locale, then default locale" do
+      it "returns given locale, then default locale" do
         I18n.default_locale = :en
         subject = Traco::LocaleFallbacks.new(:default)
         expect(subject[:sv]).to eq [ :sv, :en ]
@@ -27,7 +27,7 @@ describe Traco::LocaleFallbacks do
     end
 
     context "with the :any option" do
-      it "returns locale, then default locale, then available locales alphabetically sorted" do
+      it "returns given locale, then default locale, then remaining available locales alphabetically" do
         I18n.default_locale = :en
         I18n.available_locales = [ :en, :sv, :uk, :de ]
         subject = Traco::LocaleFallbacks.new(:any)
@@ -36,7 +36,7 @@ describe Traco::LocaleFallbacks do
     end
 
     context "with the false option" do
-      it "returns only locale" do
+      it "returns only given locale" do
         subject = Traco::LocaleFallbacks.new(false)
         expect(subject[:sv]).to eq [ :sv ]
       end
