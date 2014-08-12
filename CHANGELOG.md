@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.1.3
+
+ * ~20 time speedup thanks to optimizations by Andrii Malyshko.
+
+   Reading a Traco translated attribute used to be ~250x slower than an untranslated attribute; now it's down to ~10x slower.
+
+## 3.1.2
+
+* Bugfix: `.current_locale_column` handles dashed locales like "pt-BR" correctly. Thanks to Leung Ho Kuen.
+
+## 3.1.1
+
+* Bugfix around fallbacks and memoization. Thanks to Leung Ho Kuen.
+
 ## 3.1.0
 
 * Introduce `.current_locale_column`, e.g. `Post.current_locale_column(:title)  # => :title_sv`.
@@ -18,7 +32,7 @@
 
 ## 2.0.0
 
-* Backwards incompatible: for dashed locales like `:"pt-BR"`, the column names are now expected to end in e.g. `_pt_br`, not `_pt-BR`.
+* Backwards incompatible: for dashed locales like "pt-BR", the column names are now expected to end in e.g. `_pt_br`, not `_pt-BR`.
 
 ## 1.3.0
 
