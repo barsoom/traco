@@ -2,17 +2,9 @@ require "spec_helper"
 require "traco/locale_fallbacks"
 
 describe Traco::LocaleFallbacks do
-  describe "#initialize" do
-    it "accepts :default, :any, and false as valid arguments" do
-      expect {
-        Traco::LocaleFallbacks.new(:default)
-        Traco::LocaleFallbacks.new(:any)
-        Traco::LocaleFallbacks.new(false)
-      }.not_to raise_error
-    end
-
-    it "raises ArgumentError if invalid argument passed in" do
-      expect { Traco::LocaleFallbacks.new(:invalid) }.to raise_error(ArgumentError)
+  describe ".new" do
+    it "raises ArgumentError if an unknown argument passed in" do
+      expect { Traco::LocaleFallbacks.new(:foo) }.to raise_error(ArgumentError)
       expect { Traco::LocaleFallbacks.new(nil) }.to raise_error(ArgumentError)
     end
   end
