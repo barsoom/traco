@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require "spec_helper_models"
 require "spec_helper"
 require "traco"
 

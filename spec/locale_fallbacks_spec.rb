@@ -1,4 +1,4 @@
-require "i18n"
+require "spec_helper"
 require "traco/locale_fallbacks"
 
 describe Traco::LocaleFallbacks do
@@ -18,7 +18,7 @@ describe Traco::LocaleFallbacks do
   end
 
   describe "#[]" do
-    context "with the :default option" do
+        context "with the :default option" do
       it "returns locale, then default locale" do
         I18n.default_locale = :en
         subject = Traco::LocaleFallbacks.new(:default)
