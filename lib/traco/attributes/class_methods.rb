@@ -1,8 +1,8 @@
 module Traco
   class Attributes
     module ClassMethods
-      def locales_for_attribute(attribute, fallback = LocaleFallbacks::ANY_FALLBACK)
-        traco_cache(attribute, fallback).keys
+      def locales_for_attribute(attribute)
+        traco_cache(attribute, LocaleFallbacks::ANY_FALLBACK).keys
       end
 
       def locale_columns_for_attribute(attribute, fallback = LocaleFallbacks::ANY_FALLBACK)
