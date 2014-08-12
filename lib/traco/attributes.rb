@@ -27,7 +27,7 @@ module Traco
           default_fallback = #{@options.fetch(:fallback, LocaleFallbacks::DEFAULT_FALLBACK).inspect}
           fallback = options.fetch(:fallback, default_fallback)
 
-          columns_to_try = self.class.locale_columns_for_attribute(:#{attribute}, fallback)
+          columns_to_try = self.class._locale_columns_for_attribute(:#{attribute}, fallback)
           columns_to_try.each do |column|
             value = send(column)
             return value if value.present?
