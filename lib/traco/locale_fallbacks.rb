@@ -8,8 +8,6 @@ module Traco
       NO_FALLBACK = false,
     ]
 
-    ArgumentError = Class.new(::ArgumentError)
-
     attr_reader :fallback_option
     private :fallback_option
 
