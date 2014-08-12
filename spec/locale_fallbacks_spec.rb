@@ -4,14 +4,14 @@ require "traco/locale_fallbacks"
 describe Traco::LocaleFallbacks do
   describe "#initialize" do
     it "accepts :default, :any, and false as valid arguments" do
-      described_class.new(:default)
-      described_class.new(:any)
-      described_class.new(false)
+      Traco::LocaleFallbacks.new(:default)
+      Traco::LocaleFallbacks.new(:any)
+      Traco::LocaleFallbacks.new(false)
     end
 
     it "raises ArgumentError if invalid argument passed in" do
-      expect { described_class.new(:invalid) }.to raise_error(ArgumentError)
-      expect { described_class.new(nil) }.to raise_error(ArgumentError)
+      expect { Traco::LocaleFallbacks.new(:invalid) }.to raise_error(ArgumentError)
+      expect { Traco::LocaleFallbacks.new(nil) }.to raise_error(ArgumentError)
     end
   end
 
@@ -19,7 +19,7 @@ describe Traco::LocaleFallbacks do
     context "with the :default option" do
       it "returns locale, then default locale" do
         I18n.default_locale = :en
-        subject = described_class.new(:default)
+        subject = Traco::LocaleFallbacks.new(:default)
         expect(subject[:sv]).to eq [ :sv, :en ]
       end
     end
@@ -28,14 +28,14 @@ describe Traco::LocaleFallbacks do
       it "returns locale, then default locale, then available locales alphabetically sorted" do
         I18n.default_locale = :en
         I18n.available_locales = [ :en, :sv, :uk, :de ]
-        subject = described_class.new(:any)
+        subject = Traco::LocaleFallbacks.new(:any)
         expect(subject[:sv]).to eq [ :sv, :en, :de, :uk ]
       end
     end
 
     context "with the false option" do
       it "returns only locale" do
-        subject = described_class.new(false)
+        subject = Traco::LocaleFallbacks.new(false)
         expect(subject[:sv]).to eq [ :sv ]
       end
     end
