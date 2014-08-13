@@ -17,22 +17,16 @@ module Traco
       @available_locales = I18n.available_locales.sort
     end
 
-    def [](for_locale)
-      chain = [for_locale]
-      chain << @default_locale if include_default_locale?
-      chain |= @available_locales if include_available_locales?
-      chain
+    def [](current_locale)
+      case fallback_option
+      when DEFAULT_FALLBACK then [ current_locale, @default_locale ]
+      when ANY_FALLBACK     then [ current_locale, @default_locale, *@available_locales ].uniq
+      when NO_FALLBACK      then [ current_locale ]
+      else                  raise "Unknown fallback."  # Should never get here.
+      end
     end
 
     private
-
-    def include_default_locale?
-      [ DEFAULT_FALLBACK, ANY_FALLBACK ].include?(fallback_option)
-    end
-
-    def include_available_locales?
-      ANY_FALLBACK == fallback_option
-    end
 
     def validate_option(fallback_option)
       if OPTIONS.include?(fallback_option)
