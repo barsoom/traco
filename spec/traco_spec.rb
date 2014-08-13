@@ -8,11 +8,11 @@ describe Traco, ".split_localized_column" do
   subject { described_class }
 
   it "returns attribute and locale" do
-    expect(subject.split_localized_column("title_sv")).to eq [:title, :sv]
+    expect(subject.split_localized_column("title_sv")).to eq [ :title, :sv ]
   end
 
   it "handles normalized locales" do
-    expect(subject.split_localized_column("title_pt_br")).to eq [:title, :"pt-BR"]
+    expect(subject.split_localized_column("title_pt_br")).to eq [ :title, :"pt-BR" ]
   end
 
   it "returns nil if column is not localized" do
