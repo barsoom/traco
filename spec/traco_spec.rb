@@ -80,17 +80,18 @@ end
 describe Post, ".locales_for_attribute" do
   before do
     Post.translates :title
-    I18n.locale = :"pt-BR"
+    I18n.default_locale = :"pt-BR"
+    I18n.locale = :en
   end
 
-  it "lists the current locale with :any locale fallback" do
-    expect(Traco).to receive(:locale_with_fallbacks).with(:"pt-BR", :any).and_return([:"pt-BR", :en, :sv])
+  it "lists the locales for that attribute, default locale first and then alphabetically" do
     expect(Post.locales_for_attribute(:title)).to eq [ :"pt-BR", :en, :sv ]
   end
 
   it "doesn't include a locale if there's no corresponding column for it" do
-    expect(Traco).to receive(:locale_with_fallbacks).with(:"pt-BR", :any).and_return([:"pt-BR", :ru])
-    expect(Post.locales_for_attribute(:title)).to eq [ :"pt-BR" ]
+    I18n.available_locales += [ :ru ]
+
+    expect(Post.locales_for_attribute(:title)).not_to include(:ru)
   end
 end
 
