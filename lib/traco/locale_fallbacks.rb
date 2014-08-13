@@ -6,6 +6,7 @@ module Traco
       DEFAULT_FALLBACK = :default,
       ANY_FALLBACK = :any,
       NO_FALLBACK = false,
+      DEFAULT_FIRST_FALLBACK = :default_first,
     ]
 
     attr_reader :fallback_option
@@ -19,10 +20,11 @@ module Traco
 
     def [](current_locale)
       case fallback_option
-      when DEFAULT_FALLBACK then [ current_locale, @default_locale ]
-      when ANY_FALLBACK     then [ current_locale, @default_locale, *@available_locales ].uniq
-      when NO_FALLBACK      then [ current_locale ]
-      else                  raise "Unknown fallback."  # Should never get here.
+      when DEFAULT_FALLBACK       then [ current_locale, @default_locale ]
+      when ANY_FALLBACK           then [ current_locale, @default_locale, *@available_locales ].uniq
+      when NO_FALLBACK            then [ current_locale ]
+      when DEFAULT_FIRST_FALLBACK then [ @default_locale, *@available_locales ].uniq
+      else                        raise "Unknown fallback."  # Should never get here.
       end
     end
 

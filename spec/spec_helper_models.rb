@@ -1,9 +1,12 @@
 RSpec.configure do |config|
-  # Clear class state before each spec.
   config.before(:each) do
+    # Clear class state before each spec.
     Object.send(:remove_const, 'Post')
     Object.send(:remove_const, 'SubPost')
     load "app/post.rb"
+
+    # Known state.
+    I18n.default_locale = :sv
   end
 end
 

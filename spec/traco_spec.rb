@@ -97,27 +97,28 @@ end
 describe Post, ".locale_columns" do
   before do
     Post.translates :title
-    I18n.locale = :"pt-BR"
+    I18n.default_locale = :"pt-BR"
+    I18n.locale = :en
   end
 
-  it "lists the columns-with-locale for current locale with :any locale fallback" do
-    expect(Traco).to receive(:locale_with_fallbacks).with(:"pt-BR", :any).and_return([:"pt-BR", :en, :sv])
+  it "lists the columns-with-locale for that attribute, default locale first and then alphabetically" do
     expect(Post.locale_columns(:title)).to eq [
       :title_pt_br, :title_en, :title_sv
     ]
   end
 
   it "doesn't include a column-with-locale if it doesn't exist" do
-    expect(Traco).to receive(:locale_with_fallbacks).with(:"pt-BR", :any).and_return([:"pt-BR", :ru])
-    expect(Post.locale_columns(:title)).to eq [ :title_pt_br ]
+    I18n.available_locales += [ :ru ]
+
+    expect(Post.locale_columns(:title)).not_to include(:title_ru)
   end
 
   it "supports multiple attributes" do
     Post.translates :body
-    expect(Traco).to receive(:locale_with_fallbacks).with(:"pt-BR", :any).twice.and_return([:"pt-BR", :en, :sv])
+
     expect(Post.locale_columns(:body, :title)).to eq [
       :body_pt_br, :body_en, :body_sv,
-      :title_pt_br, :title_en, :title_sv
+      :title_pt_br, :title_en, :title_sv,
     ]
   end
 end

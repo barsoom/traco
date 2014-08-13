@@ -4,15 +4,15 @@ module Traco
       traco_cache(attribute, LocaleFallbacks::ANY_FALLBACK).keys
     end
 
+    def locale_columns(*attributes)
+      attributes.each_with_object([]) do |attribute, columns|
+        columns.concat(_locale_columns_for_attribute(attribute, LocaleFallbacks::DEFAULT_FIRST_FALLBACK))
+      end
+    end
+
     # Consider this method internal.
     def _locale_columns_for_attribute(attribute, fallback)
       traco_cache(attribute, fallback).values
-    end
-
-    def locale_columns(*attributes)
-      attributes.each_with_object([]) do |attribute, columns|
-        columns.concat(_locale_columns_for_attribute(attribute, LocaleFallbacks::ANY_FALLBACK))
-      end
     end
 
     def current_locale_column(attribute)
