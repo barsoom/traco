@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.4
+
+* Bugfix: restore sorting of `locale_columns` and `locales_for_attribute` to put default locale first, not current locale. Thanks to Leung Ho Kuen.
+
 ## 3.1.3
 
  * ~20 time speedup thanks to optimizations by Andrii Malyshko.
