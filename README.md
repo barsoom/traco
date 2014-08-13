@@ -162,7 +162,7 @@ Possible improvements to make:
 * Tobias Bohwalli
 * Mario Alberto Chavez
 * Philip Arndt
-* Leung Ho Kuen
+* [PikachuEXE](https://github.com/PikachuEXE)
 * Fernando Morgenstern
 * Tomáš Horáček
 * Joakim Kolsjö
