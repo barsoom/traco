@@ -14,8 +14,6 @@ module Traco
       self.class.ensure_translatable_attributes(base)
       base.translatable_attributes |= @attributes
 
-      self.class.warm_up_activerecord_methods(base)
-
       base.extend ClassMethods
     end
 
@@ -57,15 +55,6 @@ module Traco
 
       base.class_attribute :translatable_attributes
       base.translatable_attributes = []
-    end
-
-    # Force AR to create methods `title_en` etc, which are lazily evaluated,
-    # otherwise we can't safely check `.instance_methods`.
-    def self.warm_up_activerecord_methods(base)
-      random_attribute = base.translatable_attributes.first
-
-      instance = base.new
-      instance.send(Traco.column(random_attribute, I18n.default_locale))
     end
   end
 end
