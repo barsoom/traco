@@ -58,8 +58,11 @@ module Traco
       per_attribute_cache = per_locale_cache[attribute] ||= {}
 
       per_attribute_cache[fallback] ||= begin
-        # AR methods are lazily evaluated, so we should use `respond_to?` on this
-        # class instance, rather then `instance_methods.include?(:title_en)`
+        # AR methods are lazily evaluated, so we must use `instance.respond_to?(column)` rather
+        # than `instance_methods.include?(column)`.
+        #
+        # We previously forced AR to evaluate them, but that caused issues before the DB existed,
+        # e.g. running `rake db:create`.
         instance = new
 
         locales_to_try = Traco.locale_with_fallbacks(I18n.locale, fallback)
