@@ -1,8 +1,12 @@
 # Changelog
 
+## 3.1.5
+
+* Bugfix: don't raise error loading models before the DB is created. Thanks to PikachuEXE and Andrii Malyshko.
+
 ## 3.1.4
 
-* Bugfix: restore sorting of `locale_columns` and `locales_for_attribute` to put default locale first, not current locale. Thanks to Leung Ho Kuen.
+* Bugfix: restore sorting of `locale_columns` and `locales_for_attribute` to put default locale first, not current locale. Thanks to PikachuEXE.
 
 ## 3.1.3
 
@@ -12,11 +16,11 @@
 
 ## 3.1.2
 
-* Bugfix: `.current_locale_column` handles dashed locales like "pt-BR" correctly. Thanks to Leung Ho Kuen.
+* Bugfix: `.current_locale_column` handles dashed locales like "pt-BR" correctly. Thanks to PikachuEXE.
 
 ## 3.1.1
 
-* Bugfix around fallbacks and memoization. Thanks to Leung Ho Kuen.
+* Bugfix around fallbacks and memoization. Thanks to PikachuEXE.
 
 ## 3.1.0
 
