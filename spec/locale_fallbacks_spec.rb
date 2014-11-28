@@ -10,7 +10,7 @@ describe Traco::LocaleFallbacks do
   end
 
   describe "#[]" do
-        context "with the ':default' option" do
+    context "with the ':default' option" do
       it "returns given locale, then default locale" do
         I18n.default_locale = :en
         subject = Traco::LocaleFallbacks.new(:default)
