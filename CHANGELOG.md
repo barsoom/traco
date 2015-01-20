@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.6
+
+Make [license (MIT)](LICENSE.txt) easier to autodetect.
+
 ## 3.1.5
 
 * Bugfix: don't raise error loading models before the DB is created. Thanks to PikachuEXE and Andrii Malyshko.
