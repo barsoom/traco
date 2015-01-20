@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["henrik@barsoom.se"]
   s.homepage    = ""
   s.summary     = "Translatable columns for Rails 3 or better, stored in the model table itself."
+  s.license     = "MIT"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- spec/*`.split("\n")
