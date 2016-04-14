@@ -24,6 +24,7 @@ module Traco
       when ANY_FALLBACK           then [ current_locale, @default_locale, *@available_locales ].uniq
       when NO_FALLBACK            then [ current_locale ]
       when DEFAULT_FIRST_FALLBACK then [ @default_locale, *@available_locales ].uniq
+      when Array                  then fallback_option
       else                        raise "Unknown fallback."  # Should never get here.
       end
     end
@@ -32,6 +33,8 @@ module Traco
 
     def validate_option(fallback_option)
       if OPTIONS.include?(fallback_option)
+        fallback_option
+      elsif fallback_option.is_a?(Array)
         fallback_option
       else
         valids = OPTIONS.map(&:inspect).join(", ")

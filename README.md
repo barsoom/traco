@@ -94,6 +94,8 @@ You can specify e.g. `translates :title, fallback: false` to never fall back and
 
 You can specify e.g. `translates :title, fallback: :any` to fall back first to the default locale, then to any other locale.
 
+You can specify e.g. `translates :title, fallback: [:sv]` to explicitly declare fallbacks as an array of any length.
+
 You can override the default fallback strategy with a parameter passed to the reader: `post.title(fallback: :any)`.
 
 If you need to declare the default locale fallback, do `post.title(fallback: :default)`.

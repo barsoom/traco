@@ -35,6 +35,13 @@ describe Traco::LocaleFallbacks do
       end
     end
 
+    context "with an explicit list of locales" do
+      it "returns only those locales" do
+        subject = Traco::LocaleFallbacks.new([ :en ])
+        expect(subject[:sv]).to eq [ :en ]
+      end
+    end
+
     context "with the ':default_first' option" do
       it "returns default locale, then remaining available locales alphabetically" do
         I18n.default_locale = :uk

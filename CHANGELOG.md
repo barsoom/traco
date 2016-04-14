@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.0
+
+* Introduce e.g. `fallback: [:sv]` to explicitly specify fallbacks.
+
 ## 3.1.6
 
 Make [license (MIT)](LICENSE.txt) easier to autodetect.
