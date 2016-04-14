@@ -4,3 +4,8 @@ rvm:
   - 2.2.0
   - 2.1.0
   - 2.0.0
+
+# Avoid some errors, and speed things up:
+# https://github.com/bundler/bundler/issues/3558#issuecomment-171347979
+# https://docs.travis-ci.com/user/workers/container-based-infrastructure/
+sudo: false
