@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.1
+
+* Bugfix: with `fallback: [:sv]`, always look at current locale before any fallbacks.
+
 ## 3.2.0
 
 * Introduce e.g. `fallback: [:sv]` to explicitly specify fallbacks.

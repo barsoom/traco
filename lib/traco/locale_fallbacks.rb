@@ -26,7 +26,7 @@ module Traco
       when ANY_FALLBACK           then [ current_locale, @default_locale, *@available_locales ].uniq
       when NO_FALLBACK            then [ current_locale ]
       when DEFAULT_FIRST_FALLBACK then [ @default_locale, *@available_locales ].uniq
-      when Array                  then fallback_option
+      when Array                  then [ current_locale, *fallback_option ]
       else                        raise "Unknown fallback."  # Should never get here.
       end
     end

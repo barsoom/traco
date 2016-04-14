@@ -36,9 +36,9 @@ describe Traco::LocaleFallbacks do
     end
 
     context "with an explicit list of locales" do
-      it "returns only those locales" do
+      it "returns only those locales, after the current one" do
         subject = Traco::LocaleFallbacks.new([ :en ])
-        expect(subject[:sv]).to eq [ :en ]
+        expect(subject[:sv]).to eq [ :sv, :en ]
       end
     end
 
