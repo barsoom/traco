@@ -13,7 +13,9 @@ module Traco
     private :fallback_option
 
     def initialize(fallback_option)
-      @fallback_option = validate_option(fallback_option)
+      validate_option(fallback_option)
+
+      @fallback_option = fallback_option
       @default_locale = I18n.default_locale
       @available_locales = I18n.available_locales.sort
     end
@@ -32,14 +34,11 @@ module Traco
     private
 
     def validate_option(fallback_option)
-      if OPTIONS.include?(fallback_option)
-        fallback_option
-      elsif fallback_option.is_a?(Array)
-        fallback_option
-      else
-        valids = OPTIONS.map(&:inspect).join(", ")
-        raise ArgumentError.new("Unsupported fallback: #{fallback_option.inspect} (expected one of #{valids})")
-      end
+      return if OPTIONS.include?(fallback_option)
+      return if fallback_option.is_a?(Array)
+
+      valids = OPTIONS.map(&:inspect).join(", ")
+      raise ArgumentError.new("Unsupported fallback: #{fallback_option.inspect} (expected one of #{valids}, or an array)")
     end
   end
 end
