@@ -8,8 +8,6 @@ rvm:
 # https://docs.travis-ci.com/user/workers/container-based-infrastructure/
 sudo: false
 
-no_suffix_in_default_locale@options.fetch(:no_suffix_in_default_locale, false)
-
 matrix:
   include:
     - rvm: 2.1.0
