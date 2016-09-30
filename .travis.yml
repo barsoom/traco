@@ -12,5 +12,3 @@ matrix:
   include:
     - rvm: 2.1.0
       gemfile: Gemfile.pre_ruby_2.2.2
-    - rvm: 2.0.0
-      gemfile: Gemfile.pre_ruby_2.2.2
