@@ -120,7 +120,7 @@ end
 Add this to your `Gemfile`:
 
 ```ruby
-gem 'traco'
+gem "traco"
 ```
 
 Then run
