@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.0
+
+* Drop support for end-of-lifed Ruby 2.1 and 2.2.
+
 ## 3.3.0
 
 * Traco now automatically adds query methods, e.g. `Item#title?` when `title` is translated.
