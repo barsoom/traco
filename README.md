@@ -46,6 +46,8 @@ You can still use your accessors like `title_sv` and `title_sv=` in forms, valid
 
 `#title=`: Assigns the title to the column for the current locale, if present. Raises if the column doesn't exist.
 
+`#title?`: Is the title present? Respects the Traco [fallback](#fallbacks) setting.
+
 `.human_attribute_name(:title_sv)`: Extends this standard method to return "Title (Swedish)" if you have a translation key `i18n.languages.sv = "Swedish"` and "Title (SV)" otherwise. Rails uses this method to build validation error messages and form labels.
 
 `.translatable_attributes`: Returns an array like `[:title, :body]`.

@@ -298,6 +298,23 @@ describe Post, "#title=" do
   end
 end
 
+describe Post, "#title?" do
+  before do
+    Post.translates :title
+    I18n.locale = :sv
+    I18n.default_locale = :en
+  end
+
+  it "is true if the title is present" do
+    post = Post.new(title_sv: "", title_en: " ", title_pt_br: nil)
+    expect(post.title?).to be false
+
+    post.title_en = "Hello"
+
+    expect(post.title?).to be true
+  end
+end
+
 describe Post, ".human_attribute_name" do
   before do
     Post.translates :title

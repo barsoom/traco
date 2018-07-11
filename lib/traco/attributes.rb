@@ -7,6 +7,7 @@ module Traco
       attributes.each do |attribute|
         define_reader(attribute)
         define_writer(attribute)
+        define_query(attribute)
       end
     end
 
@@ -41,6 +42,14 @@ module Traco
         def #{attribute}=(value)
           column = Traco.column(:#{attribute}, I18n.locale).to_s + "="
           send(column, value)
+        end
+      EOM
+    end
+
+    def define_query(attribute)
+      class_eval <<-EOM, __FILE__, __LINE__ + 1
+        def #{attribute}?
+          #{attribute}.present?
         end
       EOM
     end

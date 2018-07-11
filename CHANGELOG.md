@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.3.0
+
+* Traco now automatically adds query methods, e.g. `Item#title?` when `title` is translated.
+
+## 3.2.2
+
+* Internal cleanup.
+
 ## 3.2.1
 
 * Bugfix: with `fallback: [:sv]`, always look at current locale before any fallbacks.
