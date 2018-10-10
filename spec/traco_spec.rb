@@ -84,8 +84,8 @@ describe Post, ".locales_for_attribute" do
     I18n.locale = :en
   end
 
-  it "lists the locales for that attribute, default locale first and then alphabetically" do
-    expect(Post.locales_for_attribute(:title)).to eq [ :"pt-BR", :en, :sv ]
+  it "lists the locales for that attribute, current locale first, then default locale, and then alphabetically" do
+    expect(Post.locales_for_attribute(:title)).to eq [ :en, :"pt-BR", :de, :sv ]
   end
 
   it "doesn't include a locale if there's no corresponding column for it" do
@@ -102,9 +102,9 @@ describe Post, ".locale_columns" do
     I18n.locale = :en
   end
 
-  it "lists the columns-with-locale for that attribute, default locale first and then alphabetically" do
+  it "lists the columns-with-locale for that attribute, current locale first, then default locale, and then alphabetically" do
     expect(Post.locale_columns(:title)).to eq [
-      :title_pt_br, :title_en, :title_sv
+      :title_en, :title_pt_br, :title_de, :title_sv,
     ]
   end
 
@@ -114,12 +114,12 @@ describe Post, ".locale_columns" do
     expect(Post.locale_columns(:title)).not_to include(:title_ru)
   end
 
-  it "supports multiple attributes" do
-    Post.translates :body
+it "supports multiple attributes" do
+  Post.translates :body
 
     expect(Post.locale_columns(:body, :title)).to eq [
-      :body_pt_br, :body_en, :body_sv,
-      :title_pt_br, :title_en, :title_sv,
+      :body_en, :body_pt_br, :body_de, :body_sv,
+      :title_en, :title_pt_br, :title_de, :title_sv,
     ]
   end
 end

@@ -52,7 +52,7 @@ You can still use your accessors like `title_sv` and `title_sv=` in forms, valid
 
 `.translatable_attributes`: Returns an array like `[:title, :body]`.
 
-`.locale_columns(:title)`: Returns an array like `[:title_sv, :title_en]` sorted with default locale first and then alphabetically. Suitable for looping in forms:
+`.locale_columns(:title)`: Returns an array like `[:title_sv, :title_en]` sorted with current locale first, then default locale, and then alphabetically. Suitable for looping in forms:
 
 ```erb
 <% Post.locale_columns(:title).each do |column| %>
@@ -81,7 +81,7 @@ The return value will be sorted like `[:title_sv, :title_en, :body_sv, :body_en]
 
 `.current_locale_column(:title)`: Returns `:title_sv` if `:sv` is the current locale. Suitable for some SQL queries, such as sorting.
 
-`.locales_for_attribute(:title)`: Returns an array like `[:sv, :en]` sorted with default locale first and then alphabetically.
+`.locales_for_attribute(:title)`: Returns an array like `[:sv, :en]` sorted with current locale first, then default locale, and then alphabetically.
 
 And the equivalent methods for `body`, of course.
 

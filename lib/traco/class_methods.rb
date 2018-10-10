@@ -1,12 +1,12 @@
 module Traco
   module ClassMethods
     def locales_for_attribute(attribute)
-      traco_cache(attribute, fallback: LocaleFallbacks::DEFAULT_FIRST_FALLBACK).keys
+      traco_cache(attribute, fallback: LocaleFallbacks::ANY_FALLBACK).keys
     end
 
     def locale_columns(*attributes)
       attributes.flat_map { |attribute|
-        _locale_columns_for_attribute(attribute, fallback: LocaleFallbacks::DEFAULT_FIRST_FALLBACK)
+        _locale_columns_for_attribute(attribute, fallback: LocaleFallbacks::ANY_FALLBACK)
       }
     end
 

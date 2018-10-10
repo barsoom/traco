@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.0
+
+* Change `locale_columns` and `locales_for_attribute` to sort current locale first, then default locale (previously, it was default locale first). This makes more sense for our own apps, and hopefully other apps as well.
+
 ## 4.0.0
 
 * Drop support for end-of-lifed Ruby 2.1 and 2.2.
