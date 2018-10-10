@@ -5,9 +5,9 @@ module Traco
     end
 
     def locale_columns(*attributes)
-      attributes.each_with_object([]) do |attribute, columns|
-        columns.concat(_locale_columns_for_attribute(attribute, fallback: LocaleFallbacks::DEFAULT_FIRST_FALLBACK))
-      end
+      attributes.flat_map { |attribute|
+        _locale_columns_for_attribute(attribute, fallback: LocaleFallbacks::DEFAULT_FIRST_FALLBACK)
+      }
     end
 
     # Consider this method internal.
