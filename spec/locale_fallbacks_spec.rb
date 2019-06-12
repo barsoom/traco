@@ -51,5 +51,20 @@ describe Traco::LocaleFallbacks do
         expect(subject[:sv]).to eq [ :uk, :de, :en, :sv ]
       end
     end
+
+    context "with the ':i18n' option" do
+      it "returns what is configured as a I18n fallback" do
+        I18n.fallbacks = I18n::Locale::Fallbacks.new(
+          en: [ :en, :uk, :de, :sv ],
+          uk: [ :uk, :en, :de, :sv ],
+          de: [ :de, :uk, :en, :sv ],
+          sv: [ :sv, :en, :uk, :de ],
+        )
+
+        subject = Traco::LocaleFallbacks.new(:i18n)
+        expect(subject[:sv]).to eq [ :sv, :en, :uk, :de ]
+        expect(subject[:de]).to eq [ :de, :uk, :en, :sv ]
+      end
+    end
   end
 end

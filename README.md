@@ -98,6 +98,8 @@ You can specify e.g. `translates :title, fallback: :any` to fall back first to t
 
 You can specify e.g. `translates :title, fallback: [:sv]` to explicitly declare fallbacks as an array of any length.
 
+You can specify e.g. `translates :title, fallback: :i18n` to use the fallbacks from `I18n.fallbacks`.
+
 You can override the default fallback strategy with a parameter passed to the reader: `post.title(fallback: :any)`.
 
 If you need to declare the default locale fallback, do `post.title(fallback: :default)`.

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* Feature: Add `fallback: :i18n` to use the fallbacks from `I18n.fallbacks`.
+
 ## 5.0.0
 
 * Change `locale_columns` and `locales_for_attribute` to sort current locale first, then default locale (previously, it was default locale first). This makes more sense for our own apps, and hopefully other apps as well.
