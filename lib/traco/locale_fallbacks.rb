@@ -7,6 +7,7 @@ module Traco
       ANY_FALLBACK = :any,
       NO_FALLBACK = false,
       DEFAULT_FIRST_FALLBACK = :default_first,
+      I18N_FALLBACK = :i18n,
     ]
 
     attr_reader :fallback_option
@@ -26,6 +27,7 @@ module Traco
       when ANY_FALLBACK           then [ current_locale, @default_locale, *@available_locales ].uniq
       when NO_FALLBACK            then [ current_locale ]
       when DEFAULT_FIRST_FALLBACK then [ @default_locale, *@available_locales ].uniq
+      when I18N_FALLBACK          then I18n.fallbacks[current_locale]
       when Array                  then [ current_locale, *fallback_option ]
       else                        raise "Unknown fallback."  # Should never get here.
       end
