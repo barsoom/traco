@@ -3,3 +3,5 @@ Gemfile.lock
 pkg/
 tmp
 *.gem
+# Appraisal generated lockfiles
+*.gemfile.lock
