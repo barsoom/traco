@@ -1,6 +1,6 @@
 # Traco
 
-[![Build Status](https://secure.travis-ci.org/barsoom/traco.png)](http://travis-ci.org/barsoom/traco)
+[![Build Status](https://secure.travis-ci.org/barsoom/traco.svg)](http://travis-ci.org/barsoom/traco)
 
 Translatable attributes for Ruby on Rails 4.2+, stored in the model table itself.
 
