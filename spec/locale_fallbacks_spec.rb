@@ -1,7 +1,6 @@
-require "spec_helper"
 require "traco/locale_fallbacks"
 
-describe Traco::LocaleFallbacks do
+RSpec.describe Traco::LocaleFallbacks do
   describe ".new" do
     it "raises ArgumentError if an unknown argument passed in" do
       expect { Traco::LocaleFallbacks.new(:foo) }.to raise_error(ArgumentError)

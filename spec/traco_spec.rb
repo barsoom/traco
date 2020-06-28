@@ -1,10 +1,9 @@
 # encoding: utf-8
 
-require "spec_helper"
 require "spec_helper_models"
 require "traco"
 
-describe Traco, ".split_localized_column" do
+RSpec.describe Traco, ".split_localized_column" do
   subject { described_class }
 
   it "returns attribute and locale" do
@@ -24,7 +23,7 @@ describe Traco, ".split_localized_column" do
   end
 end
 
-describe ActiveRecord::Base, ".translates" do
+RSpec.describe ActiveRecord::Base, ".translates" do
   it "is available" do
     expect(Post).to respond_to :translates
   end
@@ -57,7 +56,7 @@ describe ActiveRecord::Base, ".translates" do
   end
 end
 
-describe Post, ".translatable_attributes" do
+RSpec.describe Post, ".translatable_attributes" do
   before do
     Post.translates :title
   end
@@ -77,7 +76,7 @@ describe Post, ".translatable_attributes" do
   end
 end
 
-describe Post, ".locales_for_attribute" do
+RSpec.describe Post, ".locales_for_attribute" do
   before do
     Post.translates :title
     I18n.default_locale = :"pt-BR"
@@ -95,7 +94,7 @@ describe Post, ".locales_for_attribute" do
   end
 end
 
-describe Post, ".locale_columns" do
+RSpec.describe Post, ".locale_columns" do
   before do
     Post.translates :title
     I18n.default_locale = :"pt-BR"
@@ -124,7 +123,7 @@ it "supports multiple attributes" do
   end
 end
 
-describe Post, ".current_locale_column" do
+RSpec.describe Post, ".current_locale_column" do
   before do
     Post.translates :title
   end
@@ -140,7 +139,7 @@ describe Post, ".current_locale_column" do
   end
 end
 
-describe Post, "#title" do
+RSpec.describe Post, "#title" do
   let(:post) {
     Post.new(title_sv: "Hej", title_en: "Halloa", title_pt_br: "Olá")
   }
@@ -271,7 +270,7 @@ describe Post, "#title" do
   end
 end
 
-describe Post, "#title=" do
+RSpec.describe Post, "#title=" do
   before do
     Post.translates :title
   end
@@ -298,7 +297,7 @@ describe Post, "#title=" do
   end
 end
 
-describe Post, "#title?" do
+RSpec.describe Post, "#title?" do
   before do
     Post.translates :title
     I18n.locale = :sv
@@ -315,7 +314,7 @@ describe Post, "#title?" do
   end
 end
 
-describe Post, ".human_attribute_name" do
+RSpec.describe Post, ".human_attribute_name" do
   before do
     Post.translates :title
     I18n.locale = :sv

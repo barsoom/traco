@@ -1,5 +1,5 @@
 RSpec.configure do |config|
-  config.before(:each) do
+  config.before do
     # Clear class state before each spec.
     Object.send(:remove_const, "Post")
     Object.send(:remove_const, "SubPost")
