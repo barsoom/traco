@@ -5,9 +5,10 @@ module Traco
     end
 
     def locale_columns(*attributes)
-      attributes.flat_map { |attribute|
+      attributes = attributes.presence || translatable_attributes
+      attributes.flat_map do |attribute|
         _locale_columns_for_attribute(attribute, fallback: LocaleFallbacks::ANY_FALLBACK)
-      }
+      end
     end
 
     # Consider this method internal.
