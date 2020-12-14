@@ -1,8 +1,8 @@
 # Changelog
 
-## Unreleased
+## 5.1.0
 
-* Feature: Add `fallback: :i18n` to use the fallbacks from `I18n.fallbacks`.
+* Feature: Add `fallback: :i18n` to use the fallbacks from `I18n.fallbacks`. Thanks to [sunny](https://github.com/sunny)!
 
 ## 5.0.0
 
