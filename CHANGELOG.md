@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.0
+
+* Feature: `locale_columns` without a passed column name returns all locale columns. Thanks to [manuelmeurer](https://github.com/manuelmeurer)!
+
 ## 5.1.0
 
 * Feature: Add `fallback: :i18n` to use the fallbacks from `I18n.fallbacks`. Thanks to [sunny](https://github.com/sunny)!
