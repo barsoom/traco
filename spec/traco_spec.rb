@@ -113,12 +113,18 @@ RSpec.describe Post, ".locale_columns" do
     expect(Post.locale_columns(:title)).not_to include(:title_ru)
   end
 
-it "supports multiple attributes" do
-  Post.translates :body
+  it "supports multiple attributes" do
+    Post.translates :body
 
     expect(Post.locale_columns(:body, :title)).to eq [
       :body_en, :body_pt_br, :body_de, :body_sv,
       :title_en, :title_pt_br, :title_de, :title_sv,
+    ]
+  end
+
+  it "returns the columns of all translated attributes if no params are supplied" do
+    expect(Post.locale_columns).to eq [
+      :title_en, :title_pt_br, :title_de, :title_sv
     ]
   end
 end
