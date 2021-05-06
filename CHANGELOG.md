@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.0
+
+* Feature: You can pass a desired locale to readers and query methods, e.g. `post.title(locale: :de)` to get the German-locale title, and `post.title?(locale: :de)` to check if one exists. This ignores fallback settings – use `I18n.with_locale(:de) { post.title }` if you want fallbacks.
+
 ## 5.2.0
 
 * Feature: `locale_columns` without a passed column name returns all locale columns. Thanks to [manuelmeurer](https://github.com/manuelmeurer)!

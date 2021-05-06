@@ -21,10 +21,11 @@ module Traco
     private
 
     def define_reader(attribute)
+      default_fallback = @options.fetch(:fallback, LocaleFallbacks::DEFAULT_FALLBACK)
+
       class_eval <<-EOM, __FILE__, __LINE__ + 1
-        def #{attribute}(options = {})
-          default_fallback = #{@options.fetch(:fallback, LocaleFallbacks::DEFAULT_FALLBACK).inspect}
-          fallback = options.fetch(:fallback, default_fallback)
+        def #{attribute}(locale: nil, fallback: #{default_fallback.inspect})
+          return send(Traco.column(:#{attribute}, locale)) if locale
 
           columns_to_try = self.class._locale_columns_for_attribute(:#{attribute}, fallback: fallback)
           columns_to_try.each do |column|
@@ -48,8 +49,8 @@ module Traco
 
     def define_query(attribute)
       class_eval <<-EOM, __FILE__, __LINE__ + 1
-        def #{attribute}?
-          #{attribute}.present?
+        def #{attribute}?(locale: nil)
+          send(:#{attribute}, locale: locale).present?
         end
       EOM
     end

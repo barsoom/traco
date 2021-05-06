@@ -230,6 +230,19 @@ RSpec.describe Post, "#title" do
     expect(post.title).to eq "Hej"
   end
 
+  context "when given a 'locale' argument" do
+    it "gives the title in that locale, without fallback" do
+      post = Post.new(title_sv: "Hej", title_en: "Halloa")
+      I18n.default_locale = :en
+      I18n.locale = :en
+
+      expect(post.title(locale: :sv)).to eq "Hej"
+
+      post.title_sv = nil
+      expect(post.title(locale: :sv)).to eq nil
+    end
+  end
+
   context "when the translation was defined with fallback: false" do
     let(:post) {
       Post.new(title_sv: "Hej", title_en: "Halloa")
@@ -310,13 +323,26 @@ RSpec.describe Post, "#title?" do
     I18n.default_locale = :en
   end
 
-  it "is true if the title is present" do
+  it "is true if the title is present, with fallback" do
     post = Post.new(title_sv: "", title_en: " ", title_pt_br: nil)
     expect(post.title?).to be false
 
     post.title_en = "Hello"
 
     expect(post.title?).to be true
+  end
+
+  context "when given a 'locale' argument" do
+    it "is true if the title if present in that locale, with no fallback" do
+      post = Post.new(title_sv: "Hej", title_en: "Halloa")
+      I18n.default_locale = :en
+      I18n.locale = :en
+
+      expect(post.title?(locale: :sv)).to be true
+
+      post.title_sv = nil
+      expect(post.title?(locale: :sv)).to be false
+    end
   end
 end
 
