@@ -44,7 +44,7 @@ You can still use your accessors like `title_sv` and `title_sv=` in forms, valid
 
 `#title`: Shows the title in the current locale. If blank, [falls back](#fallbacks) to default locale. Otherwise nil.
 
-`#title(locale: :en)`: Shows the English title, without falling back. (To fall back, do `I18n.with_locale(:en) { post.title }` instead.)
+`#title(locale: :en)`: Shows the English title, without falling back? (To fall back, do `I18n.with_locale(:en) { post.title }` instead.)
 
 `#title=`: Assigns the title to the column for the current locale, if present. Raises if the column doesn't exist.
 
