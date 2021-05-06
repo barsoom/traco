@@ -44,13 +44,13 @@ You can still use your accessors like `title_sv` and `title_sv=` in forms, valid
 
 `#title`: Shows the title in the current locale. If blank, [falls back](#fallbacks) to default locale. Otherwise nil.
 
-`#title(locale: :en)`: Shows the English title, without falling back? (To fall back, do `I18n.with_locale(:en) { post.title }` instead.)
+`#title(locale: :en)`: Shows the English title, without falling back. (To fall back, do `I18n.with_locale(:en) { post.title }` instead.)
 
 `#title=`: Assigns the title to the column for the current locale, if present. Raises if the column doesn't exist.
 
 `#title?`: Is the title present? Respects the [fallback](#fallbacks) setting.
 
-`#title?(locale: :en)`: Is the title present in English, without falling back. (To fall back, do `I18n.with_locale(:en) { post.title? }` instead.)
+`#title?(locale: :en)`: Is the title present in English, without falling back? (To fall back, do `I18n.with_locale(:en) { post.title? }` instead.)
 
 `.human_attribute_name(:title_sv)`: Extends this standard method to return "Title (Swedish)" if you have a translation key `i18n.languages.sv = "Swedish"` and "Title (SV)" otherwise. Rails uses this method to build validation error messages and form labels.
 
