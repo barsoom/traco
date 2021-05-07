@@ -1,5 +1,23 @@
 # Changelog
 
+## 5.3.1
+
+* This version is only to clarify a backwards incompatibility if relying on undocumented behaviour:
+
+  Readers like `post.title` no longer accept (and ignore) arbitrary keyword arguments.
+
+  So if you would e.g. override a reader like this before:
+
+      def my_title(my_arg:)
+        super || "my fallback #{my_arg}"
+      end
+
+  You will instead need to do:
+
+      def my_title(my_arg:)
+        super() || "my fallback #{my_arg}"
+      end
+
 ## 5.3.0
 
 * Feature: You can pass a desired locale to readers and query methods, e.g. `post.title(locale: :de)` to get the German-locale title, and `post.title?(locale: :de)` to check if one exists. This ignores fallback settings – use `I18n.with_locale(:de) { post.title }` if you want fallbacks.
