@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.2
+
+* This version is only to actually include this CHANGELOG in the gem, so you can see the below if you compare gem diffs 😅
+
 ## 5.3.1
 
 * This version is only to clarify a backwards incompatibility if relying on undocumented behaviour:

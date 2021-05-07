@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = "Translatable columns for Rails 4.2 or better, stored in the model table itself."
   s.license     = "MIT"
 
-  s.files         = Dir["lib/**/*", "LICENSE.txt"]
+  s.files         = Dir["lib/**/*", "LICENSE.txt", "CHANGELOG.md"]
   s.test_files    = Dir["spec/**/*"]
   s.executables   = []
   s.require_paths = ["lib"]
