@@ -124,7 +124,7 @@ RSpec.describe Post, ".locale_columns" do
 
   it "returns the columns of all translated attributes if no params are supplied" do
     expect(Post.locale_columns).to eq [
-      :title_en, :title_pt_br, :title_de, :title_sv
+      :title_en, :title_pt_br, :title_de, :title_sv,
     ]
   end
 end
