@@ -5,8 +5,8 @@ require "traco/version"
 Gem::Specification.new do |s|
   s.name        = "traco"
   s.version     = Traco::VERSION
-  s.authors     = ["Henrik Nyh"]
-  s.email       = ["henrik@barsoom.se"]
+  s.authors     = [ "Henrik Nyh" ]
+  s.email       = [ "henrik@barsoom.se" ]
   s.homepage    = ""
   s.summary     = "Translatable columns for Rails 4.2 or better, stored in the model table itself."
   s.license     = "MIT"
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.files         = Dir["lib/**/*", "LICENSE.txt", "CHANGELOG.md"]
   s.test_files    = Dir["spec/**/*"]
   s.executables   = []
-  s.require_paths = ["lib"]
+  s.require_paths = [ "lib" ]
 
   s.required_ruby_version = ">= 2.3.0"
 
