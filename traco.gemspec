@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = ""
   s.summary     = "Translatable columns for Rails 4.2 or better, stored in the model table itself."
   s.license     = "MIT"
+  s.metadata      = { "rubygems_mfa_required" => "true" }
 
   s.files         = Dir["lib/**/*", "LICENSE.txt", "CHANGELOG.md"]
   s.test_files    = Dir["spec/**/*"]
