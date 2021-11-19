@@ -13,8 +13,6 @@ Gem::Specification.new do |s|
   s.metadata      = { "rubygems_mfa_required" => "true" }
 
   s.files         = Dir["lib/**/*", "LICENSE.txt", "CHANGELOG.md"]
-  s.test_files    = Dir["spec/**/*"]
-  s.executables   = []
   s.require_paths = [ "lib" ]
 
   s.required_ruby_version = ">= 2.3.0"
