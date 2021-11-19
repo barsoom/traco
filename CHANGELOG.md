@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.3
+
+* Force MFA for privileged Rubygems actions.
+
 ## 5.3.2
 
 * This version is only to actually include this CHANGELOG in the gem, so you can see the below if you compare gem diffs 😅
