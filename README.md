@@ -2,7 +2,7 @@
 
 [![Ruby CI](https://github.com/barsoom/traco/actions/workflows/ci.yml/badge.svg)](https://github.com/barsoom/traco/actions/workflows/ci.yml)
 
-Translatable attributes for Ruby on Rails 4.2+, stored in the model table itself.
+Translatable attributes for Ruby on Rails, stored in the model table itself.
 
 Inspired by Iain Hecker's [translatable_columns](https://github.com/iain/translatable_columns/).
 
