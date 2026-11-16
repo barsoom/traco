@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Intended to be API compatible with https://github.com/svenfuchs/i18n/blob/master/lib/i18n/locale/fallbacks.rb
 
 module Traco

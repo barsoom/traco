@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Traco
   module ClassMethods
     def locales_for_attribute(attribute)

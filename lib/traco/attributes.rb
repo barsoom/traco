@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Traco
   class Attributes < Module
     def initialize(*attributes)
