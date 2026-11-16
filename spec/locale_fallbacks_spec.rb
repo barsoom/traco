@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "traco/locale_fallbacks"
 
 RSpec.describe Traco::LocaleFallbacks do

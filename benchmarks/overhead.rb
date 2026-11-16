@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This benchmark tests how fast a Traco-wrapped attribute is
 # compared to the plain Active Record attribute.
 

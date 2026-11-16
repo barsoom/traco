@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Traco
   module Translates
     def translates(*attributes)
