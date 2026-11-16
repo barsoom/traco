@@ -21,13 +21,11 @@ jobs:
       matrix:
         ruby-version: ${{ fromJson(needs.ruby-versions.outputs.versions) }}
         gemfile:
-          - rails_7.2
           - rails_8.0
+          - rails_8.1
         exclude:
           - ruby-version: 3.3
             gemfile: rails_8.0
-          - ruby-version: head
-            gemfile: rails_7.2
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
     steps:
