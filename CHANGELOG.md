@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* Add `# frozen_string_literal: true` to all Ruby files. No behaviour change.
+
 ## 6.0.0
 
 * Return e.g. `{}` rather than `nil` for falsey values that are not the empty string.
