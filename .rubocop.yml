@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - "tmp/**/*"
+    - "gemfiles/**/*"
 inherit_gem:
   barsoom_utils: shared_rubocop.yml
 
